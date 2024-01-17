@@ -55,7 +55,7 @@ function Signup() {
           const res = await reg();
           if (!res.data) {
             await axios
-              .post("http://localhost:4000/post", {
+              .post("https://express-be.vercel.app/post", {
                 FirstName,
                 LastName,
                 Email,
