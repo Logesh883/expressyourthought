@@ -63,22 +63,24 @@ function Navigation({ value }) {
       });
   };
   useEffect(() => {
-    return async function () {
-      await axios
-        .get(`https://express-be.vercel.app/fetchImage/${Email}`)
-        .then((res) => {
-          setBase64Image(res.data.imageid);
-          console.log(res.data.imageid);
-          setusername(res.data.username);
-        })
-        .catch(() => {
-          setstatuserror("Update Your Profile Picture!");
-          setTimeout(() => {
-            setstatuserror("");
-          }, 3000);
-        });
-    };
+    fetchImages();
   }, [files, Email, value]);
+
+  const fetchImages = async () => {
+    await axios
+      .get(`https://express-be.vercel.app/fetchImage/${Email}`)
+      .then((res) => {
+        setBase64Image(res.data.imageid);
+        console.log(res.data.imageid);
+        setusername(res.data.username);
+      })
+      .catch(() => {
+        setstatuserror("Update Your Profile Picture!");
+        setTimeout(() => {
+          setstatuserror("");
+        }, 3000);
+      });
+  };
 
   useEffect(() => {
     const handleResize = () => {
