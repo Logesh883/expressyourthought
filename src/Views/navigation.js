@@ -77,7 +77,7 @@ function Navigation({ value }) {
           }, 3000);
         });
     };
-  }, [files, Email]);
+  }, [files, Email, value]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -127,7 +127,7 @@ function Navigation({ value }) {
               ADD POSTS
             </p>
             <div className="flex gap-x-2 group cursor-pointer">
-              <div className="w-12 h-12 rounded-full cursor-pointer    ">
+              <div className="w-12 h-12 rounded-full cursor-pointer">
                 {base64Image ? (
                   <div className="">
                     <img
