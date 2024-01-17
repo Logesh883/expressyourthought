@@ -38,7 +38,7 @@ function AllPost() {
 
   const fetch = async () => {
     try {
-      await axios.get("http://localhost:4000/api/allpost").then((res) => {
+      await axios.get("https://express-be.vercel.app/api/allpost").then((res) => {
         setdata(res.data.fetched);
       });
     } catch (err) {
