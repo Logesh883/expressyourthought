@@ -30,7 +30,6 @@ function Navigation({ value }) {
   const [username, setusername] = useState();
 
   const Upload = async (e) => {
-    setload(true);
     e.preventDefault();
 
     if (!files) {
@@ -40,7 +39,7 @@ function Navigation({ value }) {
       }, 4000);
       return;
     }
-
+    setload(true);
     const formData = new FormData();
     formData.append("testImage", files);
 
