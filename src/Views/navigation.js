@@ -71,7 +71,6 @@ function Navigation({ value }) {
       .get(`https://express-be.vercel.app/fetchImage/${Email}`)
       .then((res) => {
         setBase64Image(res.data.imageid);
-        console.log(res.data.imageid);
         setusername(res.data.username);
       })
       .catch(() => {

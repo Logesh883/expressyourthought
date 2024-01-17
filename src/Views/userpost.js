@@ -150,7 +150,7 @@ function UserPost() {
             Array.from(UserPost).map((val, i) => (
               <div
                 className={` select-text w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden ${
-                  deleteLoad ? "bg-blue-600" : ""
+                  deleteLoad ? "bg-blue-400" : ""
                 } `}
                 key={i}
               >
@@ -158,7 +158,7 @@ function UserPost() {
                   <div className="flex mt-16 items-center flex-col">
                     <div className="w-40 h-40 rounded-full border-4 animate-spin border-white border-t-transparent "></div>
                     <div className="mt-4">
-                      <p className="text-white font-bold  tracking-widest">
+                      <p className="text-white font-bold text-xl tracking-widest">
                         Deleting....
                       </p>
                     </div>

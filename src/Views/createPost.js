@@ -110,11 +110,11 @@ function CreatePost() {
   };
 
   return (
-    <div className="bg-slate-100 min-h-[110vh]">
+    <div className="bg-slate-100 min-h-[110vh] max-sm:min-h-screen">
       <div>
         <Navigation value={"addPost"} />
       </div>
-      <div className="  mt-3  ">
+      <div className="  lg:mt-3  ">
         {width >= 650 ? (
           <p className="text-center text-2xl font-bold uppercase tracking-wider">
             Create Post

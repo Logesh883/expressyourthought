@@ -38,9 +38,11 @@ function AllPost() {
 
   const fetch = async () => {
     try {
-      await axios.get("https://express-be.vercel.app/api/allpost").then((res) => {
-        setdata(res.data.fetched);
-      });
+      await axios
+        .get("https://express-be.vercel.app/api/allpost")
+        .then((res) => {
+          setdata(res.data.fetched);
+        });
     } catch (err) {
       console.log(err);
     } finally {
@@ -149,16 +151,6 @@ function AllPost() {
                       {Array.from(val.image).map((image, i) => (
                         <SwiperSlide key={i}>
                           <div>
-                            {/* {(() => {
-                              base64Data = btoa(
-                                new Uint8Array(image.data.data).reduce(
-                                  (data, byte) =>
-                                    data + String.fromCharCode(byte),
-                                  ""
-                                )
-                              );
-                            })()} */}
-
                             <img
                               src={image.url}
                               alt="prp"
