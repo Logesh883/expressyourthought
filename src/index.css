@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Outfit:wght@700&family=Poppins:ital,wght@1,500&family=Roboto:wght@300;400&family=Square+Peg&family=Yanone+Kaffeesatz&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.home::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 5px;
+  background-color: #f11a7b;
+  transition: width 0.3s ease-in-out;
+}
+
+.home:hover::before {
+  width: 100%;
+}
+
+.home1::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background-color: #f11a7b;
+  transition: width 0.3s ease-in-out;
+}
