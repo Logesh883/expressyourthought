@@ -103,7 +103,7 @@ function Signup() {
   };
 
   const reg = async () => {
-    const response = await axios.get("http://localhost:4000/api/check", {
+    const response = await axios.get("https://express-be.vercel.app/api/check", {
       params: { Email },
     });
     return response;
