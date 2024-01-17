@@ -172,7 +172,7 @@ function Navigation({ value }) {
                   </div>
                 </div>
               </div>
-              {username.length >= 1 ? (
+              {username ? (
                 <p className=" capitalize w-fit  font-bold gap-x-2 flex items-center h-12 text-center rounded-xl -left-30 ">
                   {username}
                 </p>
