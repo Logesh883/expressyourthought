@@ -27,7 +27,7 @@ function Navigation({ value }) {
   const navigation = useNavigate();
   const [status, setstatus] = useState("");
   const [statuserror, setstatuserror] = useState("");
-  const [username, setusername] = useState();
+  const [username, setusername] = useState("");
 
   const Upload = async (e) => {
     e.preventDefault();
@@ -128,7 +128,7 @@ function Navigation({ value }) {
             >
               ADD POSTS
             </p>
-            <div className="flex gap-x-2 group cursor-pointer">
+            <div className="flex gap-x-2 group cursor-pointer items-center">
               <div className="w-12 h-12 rounded-full cursor-pointer">
                 {base64Image ? (
                   <div className="">
@@ -172,9 +172,13 @@ function Navigation({ value }) {
                   </div>
                 </div>
               </div>
-              <p className=" capitalize w-fit  font-bold gap-x-2 flex items-center h-12 text-center rounded-xl -left-30 ">
-                {username}
-              </p>
+              {username.length >= 1 ? (
+                <p className=" capitalize w-fit  font-bold gap-x-2 flex items-center h-12 text-center rounded-xl -left-30 ">
+                  {username}
+                </p>
+              ) : (
+                <div className=" capitalize w-28 justify-center  font-bold gap-x-2 flex items-center h-6 text-center rounded-xl -left-30 bg-neutral-400 animate-pulse"></div>
+              )}
             </div>
           </div>
         </nav>
