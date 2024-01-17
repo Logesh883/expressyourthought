@@ -45,7 +45,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`http://localhost:4000/image/${Email}`, formData)
+      .post(`https://express-be.vercel.app/image/${Email}`, formData)
       .then((res) => {
         setstatus(res.data.msg);
         fileInputRef.current.value = null;
