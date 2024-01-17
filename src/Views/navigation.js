@@ -66,7 +66,7 @@ function Navigation({ value }) {
   useEffect(() => {
     return async function () {
       await axios
-        .get(`http://localhost:4000/fetchImage/${Email}`)
+        .get(`https://express-be.vercel.app/fetchImage/${Email}`)
         .then((res) => {
           setBase64Image(res.data.imageid);
           setusername(res.data.username);
