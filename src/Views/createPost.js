@@ -148,7 +148,7 @@ function CreatePost() {
                 <div className="mt-2 ">
                   <input
                     type="text"
-                    className="lg:w-[35rem] max-sm:w-72 h-10 pl-2 bg-transparent focus:outline-2 focus:outline-red-400 rounded-lg outline outline-1 outline-slate-400"
+                    className="w-[35rem] max-sm:w-72 h-10 pl-2 bg-transparent focus:outline-2 focus:outline-red-400 rounded-lg outline outline-1 outline-slate-400"
                     onChange={(e) => settitle(e.target.value)}
                     value={title}
                   />
@@ -162,18 +162,18 @@ function CreatePost() {
                   {" "}
                   <textarea
                     type="text"
-                    className="resize-y min-h-60 lg:w-[35rem] max-sm:w-72 p-2 bg-transparent  outline outline-1 outline-slate-400 rounded-lg focus:outline-2 focus:outline-red-400"
+                    className="resize-y min-h-60 w-[35rem] max-sm:w-72 p-2 bg-transparent  outline outline-1 outline-slate-400 rounded-lg focus:outline-2 focus:outline-red-400"
                     onChange={(e) => setdescription(e.target.value)}
                     value={description}
                   />
                 </div>
               </div>
               <div className="mt-3 lg:ml-4">
-                <div className="bg-red-500 h-12 relative  lg:w-[35rem] max-sm:w-72 rounded-lg">
+                <div className="bg-red-500 h-12 relative  w-[35rem] max-sm:w-72 rounded-lg">
                   <input
                     type="file"
                     name="postimage"
-                    className="opacity-0 mt-2   lg:w-[35rem] max-sm:w-72 h-12  cursor-pointer"
+                    className="opacity-0 mt-2 w-[35rem] max-sm:w-72 h-12  cursor-pointer"
                     multiple
                     ref={imageRef}
                     onChange={(e) => {
@@ -181,14 +181,14 @@ function CreatePost() {
                     }}
                   />
                   {files.length <= 0 ? (
-                    <p className="absolute top-3 lg:left-48 max-sm:left-14 font-bold text-white capitalize tracking-widest">
+                    <p className="absolute top-3 left-48 max-sm:left-14 font-bold text-white capitalize tracking-widest">
                       <span className="mr-2 mb-6">
                         <FileUploadIcon />
                       </span>
                       Choose your Files
                     </p>
                   ) : (
-                    <p className="absolute top-3 lg:left-48 max-sm:left-20 font-bold text-white capitalize tracking-widest">
+                    <p className="absolute top-3 left-48 max-sm:left-20 font-bold text-white capitalize tracking-widest">
                       {files.length}{" "}
                       {files.length === 1 ? "File selected" : "Files selected"}
                     </p>
