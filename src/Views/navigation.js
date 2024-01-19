@@ -1,11 +1,12 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, redirect } from "react-router-dom";
 import { Alert } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PortraitIcon from "@mui/icons-material/Portrait";
+
 import {
   AddCircle,
   HomeOutlined,
@@ -232,8 +233,8 @@ function Navigation({ value }) {
           </div>
           <div
             onClick={() => {
-              navigation("/login");
               Email = "";
+              redirect("/login", { state: Email });
             }}
             title="Logout"
             className="cursor-pointer"
@@ -354,26 +355,44 @@ function Navigation({ value }) {
               onChange={(e) => {
                 setfiles(e.target.files[0]);
               }}
-              size={100}
               className="border-2  mt-4 p-2"
             />
-            <div className="mx-20 my-6 flex gap-x-3">
-              <button
-                className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
-                type="submit"
-              >
-                Upload
-              </button>
-              <button
-                className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
-                onClick={() => {
-                  setfiles("");
-                  setnavProfile(false);
+            {load ? (
+              <div
+                className="border h-12 w-80 mt-4 flex justify-center items-center"
+                style={{
+                  padding: "12px 35px",
+                  background: " #4c83fa",
+                  fontSize: 17,
+                  fontWeight: 1000,
+                  color: "#ffffff",
+                  border: "3px solid #4c83fa",
+                  borderRadius: 8,
+                  boxShadow: "0 0 0 #ffffff",
+                  transition: "all 0.3s ease-in-out",
                 }}
               >
-                Cancel
-              </button>
-            </div>
+                <div className="h-8 w-8 border-4 animate-spin border-t-transparent border-white rounded-full"></div>
+              </div>
+            ) : (
+              <div className="mx-20 my-6 flex gap-x-3">
+                <button
+                  className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
+                  type="submit"
+                >
+                  Upload
+                </button>
+                <button
+                  className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
+                  onClick={() => {
+                    setfiles("");
+                    setupload("");
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
           </form>
         </div>
       )}

@@ -4,7 +4,7 @@ import pic from "../Images/explore.png";
 function Design() {
   return (
     <div className="flex lg:gap-x-5 max-sm:gap-x-3 lg:justify-center lg:items-center ">
-      <img src={pic} alt="logo" className="lg:w-32 max-sm:w-20 " />
+      <img src={pic} alt="logo" className="lg:w-32 w-36 max-sm:w-20 " />
       <div>
         <p className="text-7xl font-title text-center font-bold bg-gradient-to-r from-blue-400 to-green-500 bg-clip-text text-transparent">
           Express Your Thoughts
