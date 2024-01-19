@@ -135,7 +135,7 @@ function CreatePost() {
               Express Your Thoughts
             </p>
           )}
-          <div className="lg:w-[40rem] w-[40rem] flex flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600  max-sm:mb-20  ">
+          <div className="lg:w-[40rem]  flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600  max-sm:mb-20  ">
             <form
               onSubmit={(e) => Postcreation(e)}
               encType="multipart/form-data"
