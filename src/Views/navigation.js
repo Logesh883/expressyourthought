@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useLocation, useNavigate, redirect } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Alert } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -234,7 +234,7 @@ function Navigation({ value }) {
           <div
             onClick={() => {
               Email = "";
-              redirect("/login", { state: Email });
+              navigation("/login", { state: Email });
             }}
             title="Logout"
             className="cursor-pointer"
@@ -317,21 +317,25 @@ function Navigation({ value }) {
               </div>
             ) : (
               <div className="mx-20 my-6 flex gap-x-3">
-                <button
-                  className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
-                  type="submit"
-                >
-                  Upload
-                </button>
-                <button
-                  className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
-                  onClick={() => {
-                    setfiles("");
-                    setupload("");
-                  }}
-                >
-                  Cancel
-                </button>
+                <div>
+                  <button
+                    className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
+                    type="submit"
+                  >
+                    Upload
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
+                    onClick={() => {
+                      setfiles("");
+                      setupload("");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             )}
           </form>
@@ -376,21 +380,26 @@ function Navigation({ value }) {
               </div>
             ) : (
               <div className="mx-20 my-6 flex gap-x-3">
-                <button
-                  className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
-                  type="submit"
-                >
-                  Upload
-                </button>
-                <button
-                  className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
-                  onClick={() => {
-                    setfiles("");
-                    setupload("");
-                  }}
-                >
-                  Cancel
-                </button>
+                <div>
+                  <button
+                    className="bg-green-500 border-2 p-2 hover:shadow-lg hover:shadow-green-500 rounded-lg text-white uppercase tracking-widest"
+                    type="submit"
+                  >
+                    Upload
+                  </button>
+                </div>
+                <div>
+                  <button
+                    className="bg-red-600 border-2 p-2 hover:shadow-lg hover:shadow-red-600 rounded-lg text-white uppercase tracking-widest"
+                    onClick={() => {
+                      setfiles("");
+                      setupload("");
+                      setnavProfile(!navProfile);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
             )}
           </form>
