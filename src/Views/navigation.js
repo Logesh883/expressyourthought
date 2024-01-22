@@ -45,7 +45,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`https://express-be.vercel.app/image/${Email}`, formData)
+      .post(`http://localhost:4000/image/${Email}`, formData)
       .then((res) => {
         setstatus(res.data.msg);
         fileInputRef.current.value = null;
@@ -69,7 +69,7 @@ function Navigation({ value }) {
 
   const fetchImages = async () => {
     await axios
-      .get(`https://express-be.vercel.app/fetchImage/${Email}`)
+      .get(`http://localhost:4000/fetchImage/${Email}`)
       .then((res) => {
         setBase64Image(res.data.imageid);
         setusername(res.data.username);
