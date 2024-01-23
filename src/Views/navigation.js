@@ -10,9 +10,10 @@ import PortraitIcon from "@mui/icons-material/Portrait";
 import {
   AddCircle,
   HomeOutlined,
-  Logout,
+  LogoutTwoTone,
   PortraitOutlined,
 } from "@mui/icons-material";
+import { googleLogout } from "@react-oauth/google";
 
 function Navigation({ value }) {
   const [files, setfiles] = useState(null);
@@ -29,6 +30,18 @@ function Navigation({ value }) {
   const [status, setstatus] = useState("");
   const [statuserror, setstatuserror] = useState("");
   const [username, setusername] = useState("");
+  axios.defaults.withCredentials = true;
+
+  const Logout = async () => {
+    googleLogout();
+    await axios
+      .get("http://localhost:4000/api/logout", null, {
+        withCredentials: true,
+      })
+      .then((res) => console.log(res.data.msg))
+      .catch((err) => console.log(err))
+      .finally(() => (window.location.pathname = "/"));
+  };
 
   const Upload = async (e) => {
     e.preventDefault();
@@ -45,7 +58,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`http://localhost:4000/image/${Email}`, formData)
+      .post(`http://localhost:4000/image`, formData, { withCredentials: true })
       .then((res) => {
         setstatus(res.data.msg);
         fileInputRef.current.value = null;
@@ -61,21 +74,29 @@ function Navigation({ value }) {
       })
       .finally(() => {
         setload(false);
+        window.location.reload();
       });
   };
   useEffect(() => {
     fetchImages();
   }, [files, Email, value]);
-
+  axios.defaults.withCredentials = true;
   const fetchImages = async () => {
     await axios
-      .get(`http://localhost:4000/fetchImage/${Email}`)
+      .get(`http://localhost:4000/fetchImage`, null, { withCredentials: true })
       .then((res) => {
-        setBase64Image(res.data.imageid);
-        setusername(res.data.username);
+        if (res.status === 401) {
+          console.log("not Autorization");
+        }
+        setBase64Image(res.data.fetched.Profile);
+
+        setusername(res.data.fetched.UserName);
       })
-      .catch(() => {
+      .catch((err) => {
         setstatuserror("Update Your Profile Picture!");
+        if (err.response.request.status === 401) {
+          window.location.pathname = "/";
+        }
         setTimeout(() => {
           setstatuserror("");
         }, 3000);
@@ -135,7 +156,7 @@ function Navigation({ value }) {
                   <div className="">
                     <img
                       src={base64Image}
-                      alt="prp"
+                      alt="Profile"
                       className="rounded-full  w-12 h-12  "
                     />
                   </div>
@@ -164,8 +185,7 @@ function Navigation({ value }) {
                   <div
                     className="border-b-2 p-2  border-red-500 rounded-3xl hover:border-green-500 cursor-pointer "
                     onClick={() => {
-                      navigation("/login");
-                      Email = "";
+                      Logout();
                     }}
                   >
                     {" "}
@@ -223,7 +243,7 @@ function Navigation({ value }) {
                 : ""
             }`}
             title="AddPost"
-            onClick={() => navigation("/createPost", { state: Email })}
+            onClick={() => navigation("/createPost")}
           >
             {style === "addPost" ? (
               <AddCircle sx={{ fontSize: "40px", fill: "red" }} />
@@ -233,13 +253,12 @@ function Navigation({ value }) {
           </div>
           <div
             onClick={() => {
-              Email = "";
-              navigation("/login", { state: Email });
+              Logout();
             }}
             title="Logout"
             className="cursor-pointer"
           >
-            <Logout sx={{ fontSize: "30px", fill: "white" }} />
+            <LogoutTwoTone sx={{ fontSize: "30px", fill: "white" }} />
           </div>
           <div
             className="cursor-pointer"

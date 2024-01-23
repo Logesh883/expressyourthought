@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Design from "../LoginComponents/Logo_Design";
 import "./button.css";
 import { motion } from "framer-motion";
-import { googleLogout, GoogleLogin } from "@react-oauth/google";
+import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 function LandingPage() {
-  const [data, setdata] = useState("");
   const [width, setWidth] = useState(window.innerWidth);
   const [state, setstate] = useState(true);
+  const navigation = useNavigate();
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,7 +22,9 @@ function LandingPage() {
     };
   }, []);
   axios.defaults.withCredentials = true;
+
   const handleSuccess = async (res) => {
+    console.log("handleCloseModal");
     const decode = jwtDecode(res.credential);
     setstate(!state);
     const { name, email, picture } = decode;
@@ -32,12 +34,18 @@ function LandingPage() {
         email,
         picture,
       })
-      .then((res) => console.log(res.data))
+      .then(() => {})
       .catch((err) => console.log(err));
     await Login(email)
-      .then((res) => console.log(res))
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data.msg);
+          navigation("/feedPost");
+        }
+      })
       .catch((err) => console.log(err));
   };
+
   useEffect(() => {
     CheckLogin()
       .then((res) => {
@@ -45,17 +53,18 @@ function LandingPage() {
           setstate(false);
         }
       })
-      .catch((err) => console.log(err));
-  }, []);
+      .catch((err) => console.log(err))
+      .finally(() => {
+        if (state) {
+          navigation("/feedpost");
+        }
+      });
+  });
 
   const CheckLogin = async () => {
     return await axios.get("http://localhost:4000/api/check", null, {
       withCredentials: true,
     });
-  };
-
-  const Logout = () => {
-    googleLogout();
   };
 
   const Login = async (email) => {
@@ -67,7 +76,7 @@ function LandingPage() {
   return (
     <div className="  overflow-hidden box-content">
       <div className=" flex justify-between max-sm:justify-around lg:mx-20 items-center p-2">
-        <p className="text-5xl max-sm:text-xl font-title bg-gradient-to-tr from-pink-600 bg-clip-text text-transparent to-teal-500  font-bold my-2">
+        <p className="text-5xl max-sm:text-xl font-title bg-gradient-to-tr from-pink-600 bg-clip-text text-transparent to-teal-500  font-bold my-2 ">
           Express Your Thoughts
         </p>
 
@@ -77,33 +86,31 @@ function LandingPage() {
               <GoogleLogin
                 onSuccess={(res) => handleSuccess(res)}
                 onError={(err) => console.log(err)}
-                useOneTap={state === true}
                 theme="filled_blue"
-                shape="circle"
+                shape="square"
+                width={150}
               />
             ) : (
               <div className="flex gap-2 ">
-                <button onClick={() => Login()}>Start Journey</button>
-                <button onClick={() => Logout()}>Logout</button>
+                <button>Start Journey</button>
+                <button>Logout</button>
               </div>
             )}
           </div>
         ) : (
-          <div>
+          <div className="">
             {state ? (
               <GoogleLogin
                 onSuccess={(res) => handleSuccess(res)}
                 onError={(err) => console.log(err)}
-                useOneTap={state === true}
                 theme="filled_blue"
-                shape="circle"
+                shape="square"
+                width={400}
               />
             ) : (
               <div>
-                <Link to="/feedPost" state={data.email}>
-                  <button>Start Journey</button>
-                  <button>Logout</button>
-                </Link>
+                <button>Start Journey</button>
+                <button>Logout</button>
               </div>
             )}
           </div>

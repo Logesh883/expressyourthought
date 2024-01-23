@@ -25,22 +25,16 @@ function AllPost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
-
-  useEffect(() => {
-    if (!Email) {
-      setstatuserror("Autorization failed Login again");
-      setTimeout(() => {
-        navigation("/login");
-        setstatuserror("");
-      }, 3000);
-    }
-  }, [Email, navigation]);
-
+  axios.defaults.withCredentials = true;
   const fetch = async () => {
     try {
-      await axios.get("http://localhost:4000/api/allpost").then((res) => {
-        setdata(res.data.fetched);
-      });
+      await axios
+        .get("http://localhost:4000/api/allpost", null, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setdata(res.data.fetched);
+        });
     } catch (err) {
       console.log(err);
     } finally {
@@ -120,7 +114,7 @@ function AllPost() {
                       <FeedUserProfile userdata={val.userProfile} />
                     </div>
                     <div>
-                      <p className="w-40  h-7">{val.username}</p>
+                      <p className=" h-7">{val.username}</p>
                     </div>
                   </div>
                 </div>
@@ -196,15 +190,13 @@ function AllPost() {
       <div className="flex justify-center items-center my-3 flex-col cursor-pointer max-sm:mb-20 max-sm:mt-20">
         <button
           onClick={() => {
-            navigation("/smallloader");
-            setTimeout(() => {
-              navigation("/feedPost", { state: Email });
-            }, 1400);
+            fetch();
+            window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           className="uppercase tracking-wider"
         >
           Refresh
-          <div class="star-1">
+          <div className="star-1">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -218,12 +210,12 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>
           </div>
-          <div class="star-2">
+          <div className="star-2">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -237,12 +229,12 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>
           </div>
-          <div class="star-3">
+          <div className="star-3">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -256,12 +248,12 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>
           </div>
-          <div class="star-4">
+          <div className="star-4">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -275,12 +267,12 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>
           </div>
-          <div class="star-5">
+          <div className="star-5">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -294,12 +286,12 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>
           </div>
-          <div class="star-6">
+          <div className="star-6">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 784.11 815.53"
@@ -313,7 +305,7 @@ function AllPost() {
                 <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                 <path
                   d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  class="fil0"
+                  className="fil0"
                 ></path>
               </g>
             </svg>

@@ -11,14 +11,14 @@ import { Alert } from "@mui/material";
 import "swiper/css/pagination";
 import "./userPostButton.css";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-
+import gif from "../Images/delete.gif";
 function UserPost() {
   const [doubleClick, setDoubleClick] = useState(false);
   const [clickedImage, setClickedImage] = useState(null);
   const [UserPost, setUserPost] = useState([]);
   const location = useLocation();
   const navigator = useNavigate();
-  const [deleteLoad, setDeleteLoad] = useState(false);
+  const [deleteLoad, setDeleteLoad] = useState(true);
   const [loading, setLoading] = useState(true);
   const Email = location.state;
   const [width, setWidth] = useState(window.innerWidth);
@@ -29,17 +29,7 @@ function UserPost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
-
-  useEffect(() => {
-    if (!Email) {
-      setstatusdelete("Autorization failed Login again");
-      setTimeout(() => {
-        navigator("/login");
-        setstatusdelete("");
-      }, 3000);
-    }
-  }, [Email, navigator]);
-
+  const [postLoading, setPostLoading] = useState({});
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -75,12 +65,14 @@ function UserPost() {
   const handleCloseModal = () => {
     setDoubleClick(false);
   };
-
+  axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/getUserPost/${Email}`
+          `http://localhost:4000/api/getUserPost`,
+          null,
+          { withCredentials: true }
         );
 
         setUserPost(response.data.post);
@@ -96,13 +88,17 @@ function UserPost() {
 
   const removePost = async (val) => {
     setDeleteLoad(true);
+    setPostLoading((prev) => ({ ...prev, [val]: true }));
     await axios
       .delete(`http://localhost:4000/api/removePost/${val}`)
       .then((res) => {
         setstatusdelete(res.data.message);
       })
       .catch((err) => console.log(err))
-      .finally(() => setDeleteLoad(false));
+      .finally(() => {
+        setDeleteLoad(false);
+        setPostLoading((prev) => ({ ...prev, [val]: false }));
+      });
 
     setTimeout(() => {
       setstatusdelete("");
@@ -149,19 +145,16 @@ function UserPost() {
           ) : UserPost.length > 0 ? (
             Array.from(UserPost).map((val, i) => (
               <div
-                className={` select-text w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden ${
-                  deleteLoad ? "bg-blue-400" : ""
-                } `}
+                className={` select-text my-2 w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-blue-300  overflow-hidden `}
                 key={i}
               >
-                {deleteLoad ? (
-                  <div className="flex mt-16 items-center flex-col">
-                    <div className="w-40 h-40 rounded-full border-4 animate-spin border-white border-t-transparent "></div>
-                    <div className="mt-4">
-                      <p className="text-white font-bold text-xl tracking-widest">
-                        Deleting....
-                      </p>
-                    </div>
+                {postLoading[val._id] ? (
+                  <div className="flex items-center object-contain w-[60rem] h-[30rem] flex-col">
+                    <img
+                      src={gif}
+                      alt="delete gif"
+                      className="w-[60rem] h-[30rem]"
+                    />
                   </div>
                 ) : (
                   <div>
@@ -231,7 +224,7 @@ function UserPost() {
                   onClick={() => navigator("/createPost", { state: Email })}
                 >
                   Create Post
-                  <div class="star-1">
+                  <div className="star-1">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -245,12 +238,12 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>
                   </div>
-                  <div class="star-2">
+                  <div className="star-2">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -264,12 +257,12 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>
                   </div>
-                  <div class="star-3">
+                  <div className="star-3">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -283,12 +276,12 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>
                   </div>
-                  <div class="star-4">
+                  <div className="star-4">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -302,12 +295,12 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>
                   </div>
-                  <div class="star-5">
+                  <div className="star-5">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -321,12 +314,12 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>
                   </div>
-                  <div class="star-6">
+                  <div className="star-6">
                     <svg
                       xmlnsXlink="http://www.w3.org/1999/xlink"
                       viewBox="0 0 784.11 815.53"
@@ -340,7 +333,7 @@ function UserPost() {
                         <metadata id="CorelCorpID_0Corel-Layer"></metadata>
                         <path
                           d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                          class="fil0"
+                          className="fil0"
                         ></path>
                       </g>
                     </svg>

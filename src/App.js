@@ -10,7 +10,7 @@ import UserPost from "./Views/userpost";
 import allPost from "./Views/feedPost";
 import Smallloader from "./LoginComponents/smallloader";
 import LandingPage from "./Views/landingPage";
-import { GoogleOAuthProvider, useGoogleOneTapLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
@@ -20,12 +20,9 @@ function App() {
         <BrowserRouter basename="/">
           <Routes>
             <Route path="/" Component={LandingPage} />
-            <Route path="/smallloader" element={<Smallloader />} />
             <Route path="/createPost" element={<CreatePost />} />
-            <Route path="/load" Component={Loader} />
             <Route path="/getUserPost" element={<UserPost />} />
             <Route path="/feedPost" Component={allPost} />
-            <Route path="/nav" Component={Navigation} />
           </Routes>
         </BrowserRouter>
       </GoogleOAuthProvider>
