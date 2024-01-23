@@ -45,7 +45,14 @@ function LandingPage() {
   };
 
   useEffect(() => {
-    CheckLogin()
+    CheckLogin();
+  });
+
+  const CheckLogin = async () => {
+    return await axios
+      .get("https://express-be.vercel.app/api/check", null, {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.data) {
           setstate(false);
@@ -55,12 +62,6 @@ function LandingPage() {
       .finally(() => {
         console.log("navigation");
       });
-  });
-
-  const CheckLogin = async () => {
-    return await axios.get("https://express-be.vercel.app/api/check", null, {
-      withCredentials: true,
-    });
   };
 
   const Login = async (email) => {
