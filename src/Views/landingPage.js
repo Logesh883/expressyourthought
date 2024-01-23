@@ -24,7 +24,6 @@ function LandingPage() {
   axios.defaults.withCredentials = true;
 
   const handleSuccess = async (res) => {
-    console.log("handleCloseModal");
     const decode = jwtDecode(res.credential);
     setstate(!state);
     const { name, email, picture } = decode;
@@ -40,7 +39,6 @@ function LandingPage() {
       .then((res) => {
         if (res.data) {
           console.log(res.data.msg);
-          navigation("/feedPost");
         }
       })
       .catch((err) => console.log(err));
@@ -55,9 +53,7 @@ function LandingPage() {
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        if (state) {
-          navigation("/feedpost");
-        }
+        console.log("navigation");
       });
   });
 
