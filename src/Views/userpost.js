@@ -70,7 +70,7 @@ function UserPost() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://express-be.vercel.app//api/getUserPost`,
+          `https://express-be.vercel.app/api/getUserPost`,
           null,
           { withCredentials: true }
         );
@@ -90,7 +90,7 @@ function UserPost() {
     setDeleteLoad(true);
     setPostLoading((prev) => ({ ...prev, [val]: true }));
     await axios
-      .delete(`https://express-be.vercel.app//api/removePost/${val}`)
+      .delete(`https://express-be.vercel.app/api/removePost/${val}`)
       .then((res) => {
         setstatusdelete(res.data.message);
       })

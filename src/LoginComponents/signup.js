@@ -55,7 +55,7 @@ function Signup() {
           const res = await reg();
           if (!res.data) {
             await axios
-              .post("https://express-be.vercel.app//post", {
+              .post("https://express-be.vercel.app/post", {
                 FirstName,
                 LastName,
                 Email,
@@ -104,7 +104,7 @@ function Signup() {
 
   const reg = async () => {
     const response = await axios.get(
-      "https://express-be.vercel.app//api/check",
+      "https://express-be.vercel.app/api/check",
       {
         params: { Email },
       }

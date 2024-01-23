@@ -42,7 +42,7 @@ function Login() {
 
   const Login = async () => {
     const response = await axios.get(
-      "https://express-be.vercel.app//api/check",
+      "https://express-be.vercel.app/api/check",
       {
         params: { Email },
       }
@@ -53,7 +53,7 @@ function Login() {
       if (Email !== "" && Password !== "") {
         if (Email.match(regex)) {
           const response = await axios.get(
-            "https://express-be.vercel.app//api/login",
+            "https://express-be.vercel.app/api/login",
             {
               params: { Email, Password },
             }
