@@ -41,17 +41,23 @@ function Login() {
   }, []);
 
   const Login = async () => {
-    const response = await axios.get("http://localhost:4000/api/check", {
-      params: { Email },
-    });
+    const response = await axios.get(
+      "https://express-be.vercel.app//api/check",
+      {
+        params: { Email },
+      }
+    );
     if (!response.data) {
       seterror("UserEmail not Found");
     } else {
       if (Email !== "" && Password !== "") {
         if (Email.match(regex)) {
-          const response = await axios.get("http://localhost:4000/api/login", {
-            params: { Email, Password },
-          });
+          const response = await axios.get(
+            "https://express-be.vercel.app//api/login",
+            {
+              params: { Email, Password },
+            }
+          );
           if (response.data) {
             setsuccess("Login successfull");
 

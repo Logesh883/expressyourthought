@@ -29,7 +29,7 @@ function LandingPage() {
     setstate(!state);
     const { name, email, picture } = decode;
     await axios
-      .post("http://localhost:4000/post", {
+      .post("https://express-be.vercel.app//post", {
         name,
         email,
         picture,
@@ -62,13 +62,13 @@ function LandingPage() {
   });
 
   const CheckLogin = async () => {
-    return await axios.get("http://localhost:4000/api/check", null, {
+    return await axios.get("https://express-be.vercel.app//api/check", null, {
       withCredentials: true,
     });
   };
 
   const Login = async (email) => {
-    return await axios.get("http://localhost:4000/api/login", {
+    return await axios.get("https://express-be.vercel.app//api/login", {
       params: { email },
     });
   };

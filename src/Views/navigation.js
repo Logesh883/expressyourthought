@@ -35,7 +35,7 @@ function Navigation({ value }) {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("http://localhost:4000/api/logout", null, {
+      .get("https://express-be.vercel.app//api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -58,7 +58,9 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`http://localhost:4000/image`, formData, { withCredentials: true })
+      .post(`https://express-be.vercel.app//image`, formData, {
+        withCredentials: true,
+      })
       .then((res) => {
         setstatus(res.data.msg);
         fileInputRef.current.value = null;
@@ -83,7 +85,9 @@ function Navigation({ value }) {
   axios.defaults.withCredentials = true;
   const fetchImages = async () => {
     await axios
-      .get(`http://localhost:4000/fetchImage`, null, { withCredentials: true })
+      .get(`https://express-be.vercel.app//fetchImage`, null, {
+        withCredentials: true,
+      })
       .then((res) => {
         if (res.status === 401) {
           console.log("not Autorization");
