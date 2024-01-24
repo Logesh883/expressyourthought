@@ -28,11 +28,15 @@ function LandingPage() {
     setstate(!state);
     const { name, email, picture } = decode;
     await axios
-      .post("https://express-be.vercel.app/post", {
-        name,
-        email,
-        picture,
-      })
+      .post(
+        "https://express-be.vercel.app/post",
+        {
+          name,
+          email,
+          picture,
+        },
+        { withCredentials: true }
+      )
       .then(() => {})
       .catch((err) => console.log(err));
     await Login(email)
