@@ -72,7 +72,9 @@ function UserPost() {
         const response = await axios.get(
           `https://express-be.vercel.app/api/getUserPost`,
           null,
-          { withCredentials: true }
+          {
+            withCredentials: true,
+          }
         );
 
         setUserPost(response.data.post);

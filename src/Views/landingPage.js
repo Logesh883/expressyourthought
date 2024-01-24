@@ -50,7 +50,6 @@ function LandingPage() {
 
   useEffect(() => {
     CheckLogin();
-    console.log(document.domain);
   }, []);
 
   const CheckLogin = async () => {
@@ -61,12 +60,11 @@ function LandingPage() {
       .then((res) => {
         if (res.data) {
           setstate(false);
+          navigation("/feedpost");
         }
       })
       .catch((err) => console.log(err))
-      .finally(() => {
-        console.log("navigation");
-      });
+      .finally(() => {});
   };
 
   const Login = async (email) => {
