@@ -44,25 +44,25 @@ function LandingPage() {
       .catch((err) => console.log(err));
   };
 
-  // useEffect(() => {
-  //   CheckLogin();
-  // }, []);
+  useEffect(() => {
+    CheckLogin();
+  }, []);
 
-  // const CheckLogin = async () => {
-  //   return await axios
-  //     .get("https://express-be.vercel.app/api/check", null, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       if (res.data) {
-  //         setstate(false);
-  //       }
-  //     })
-  //     .catch((err) => console.log(err))
-  //     .finally(() => {
-  //       console.log("navigation");
-  //     });
-  // };
+  const CheckLogin = async () => {
+    return await axios
+      .get("https://express-be.vercel.app/api/check", null, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        if (res.data) {
+          setstate(false);
+        }
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        console.log("navigation");
+      });
+  };
 
   const Login = async (email) => {
     return await axios.get(
