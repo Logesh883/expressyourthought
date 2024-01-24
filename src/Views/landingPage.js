@@ -38,7 +38,7 @@ function LandingPage() {
     await Login(email)
       .then((res) => {
         if (res.data) {
-          console.log(res.data.msg);
+          console.log(res.data);
         }
       })
       .catch((err) => console.log(err));
