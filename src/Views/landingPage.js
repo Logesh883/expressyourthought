@@ -65,9 +65,13 @@ function LandingPage() {
   // };
 
   const Login = async (email) => {
-    return await axios.get("https://express-be.vercel.app/api/login", {
-      params: { email },
-    });
+    return await axios.get(
+      "https://express-be.vercel.app/api/login",
+      {
+        params: { email },
+      },
+      { withCredentials: true }
+    );
   };
 
   return (
