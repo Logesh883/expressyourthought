@@ -38,9 +38,11 @@ function Navigation({ value }) {
       .get("https://server.ideavista.online/api/logout", null, {
         withCredentials: true,
       })
-      .then((res) => console.log(res.data.msg))
-      .catch((err) => console.log(err))
-      .finally(() => (window.location.pathname = "/"));
+      .then((res) => {
+        console.log(res.data.msg);
+        navigation("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   const Upload = async (e) => {
