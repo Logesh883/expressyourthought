@@ -71,6 +71,7 @@ function LandingPage() {
 
   useEffect(() => {
     CheckLogin();
+    console.log(document.domain);
   }, []);
 
   const CheckLogin = async () => {
