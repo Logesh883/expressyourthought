@@ -35,7 +35,7 @@ function Navigation({ value }) {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("https://express-be.vercel.app/api/logout", null, {
+      .get("https://server.ideavista.online/api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -58,7 +58,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`https://express-be.vercel.app/image`, formData, {
+      .post(`https://server.ideavista.online/image`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -85,7 +85,7 @@ function Navigation({ value }) {
   axios.defaults.withCredentials = true;
   const fetchImages = async () => {
     await axios
-      .get(`https://express-be.vercel.app/fetchImage`, null, {
+      .get(`https://server.ideavista.online/fetchImage`, null, {
         withCredentials: true,
       })
       .then((res) => {

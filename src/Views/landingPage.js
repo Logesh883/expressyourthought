@@ -19,7 +19,7 @@ function LandingPage() {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("https://express-be.vercel.app/api/logout", null, {
+      .get("https://server.ideavista.online/api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -51,7 +51,7 @@ function LandingPage() {
     const { name, email, picture } = decode;
     await axios
       .post(
-        "https://express-be.vercel.app/post",
+        "https://server.ideavista.online/post",
         {
           name,
           email,
@@ -76,7 +76,7 @@ function LandingPage() {
   const CheckLogin = async () => {
     setnavLoad(true);
     return await axios
-      .get("https://express-be.vercel.app/api/check", null, {
+      .get("https://server.ideavista.online/api/check", null, {
         withCredentials: true,
       })
       .then((res) => {
@@ -93,7 +93,7 @@ function LandingPage() {
 
   const Login = async (email) => {
     return await axios.get(
-      "https://express-be.vercel.app/api/login",
+      "https://server.ideavista.online/api/login",
       {
         params: { email },
       },

@@ -28,7 +28,7 @@ function AllPost() {
   const fetch = async () => {
     try {
       await axios
-        .get("https://express-be.vercel.app/api/allpost", null, {
+        .get("https://server.ideavista.online/api/allpost", null, {
           withCredentials: true,
         })
         .then((res) => {
