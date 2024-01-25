@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserProfile from "./UserProfile";
@@ -11,14 +11,14 @@ import { Alert } from "@mui/material";
 import "swiper/css/pagination";
 import "./userPostButton.css";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import gif from "../Images/delete.gif";
+
 function UserPost() {
   const [doubleClick, setDoubleClick] = useState(false);
   const [clickedImage, setClickedImage] = useState(null);
   const [UserPost, setUserPost] = useState([]);
   const location = useLocation();
   const navigator = useNavigate();
-  const [deleteLoad, setDeleteLoad] = useState(true);
+  const [deleteLoad, setDeleteLoad] = useState(false);
   const [loading, setLoading] = useState(true);
   const Email = location.state;
   const [width, setWidth] = useState(window.innerWidth);
@@ -29,6 +29,7 @@ function UserPost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
+  const desc = useRef("");
   const [postLoading, setPostLoading] = useState({});
   useEffect(() => {
     const handleResize = () => {
@@ -70,7 +71,7 @@ function UserPost() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://express-be.vercel.app/api/getUserPost`,
+          `http://localhost:4000/api/getUserPost`,
           null,
           {
             withCredentials: true,
@@ -89,16 +90,14 @@ function UserPost() {
   }, [Email, statusdelete]);
 
   const removePost = async (val) => {
-    setDeleteLoad(true);
     setPostLoading((prev) => ({ ...prev, [val]: true }));
     await axios
-      .delete(`https://express-be.vercel.app/api/removePost/${val}`)
+      .delete(`http://localhost:4000/api/removePost/${val}`)
       .then((res) => {
         setstatusdelete(res.data.message);
       })
       .catch((err) => console.log(err))
       .finally(() => {
-        setDeleteLoad(false);
         setPostLoading((prev) => ({ ...prev, [val]: false }));
       });
 
@@ -106,7 +105,7 @@ function UserPost() {
       setstatusdelete("");
     }, 4000);
   };
-
+  var st;
   return (
     <React.Fragment>
       <div className="">
@@ -118,9 +117,7 @@ function UserPost() {
           {width >= 650 ? (
             ""
           ) : (
-            <p className="text-3xl font-title  font-bold my-2">
-              Express Your Thoughts
-            </p>
+            <p className="text-3xl font-title  font-bold my-2">Ideavista</p>
           )}
           {loading ? (
             [...Array(5)].map((_, i) => (
@@ -147,20 +144,20 @@ function UserPost() {
           ) : UserPost.length > 0 ? (
             Array.from(UserPost).map((val, i) => (
               <div
-                className={` select-text my-2 w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-blue-300  overflow-hidden `}
+                className={` select-text my-2 w-[60rem] min-h-[30rem] border-2 rounded-lg p-3 border-blue-300  overflow-hidden shadow-inner shadow-blue-200`}
                 key={i}
               >
                 {postLoading[val._id] ? (
-                  <div className="flex items-center object-contain w-[60rem] h-[30rem] flex-col">
-                    <img
-                      src={gif}
-                      alt="delete gif"
-                      className="w-[60rem] h-[30rem]"
-                    />
+                  <div className="flex items-center  justify-center object-contain w-[60rem] h-[30rem]  flex-col bg-teal-100">
+                    <div class="flex flex-row gap-2">
+                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                    </div>
                   </div>
                 ) : (
                   <div>
-                    <div>
+                    <div className="font-roboto">
                       <UserProfile
                         userdata={val.username}
                         userimage={val.userProfile[0]}
@@ -170,13 +167,47 @@ function UserPost() {
                       />
                     </div>
 
-                    <div key={i} className="mt-2">
-                      <div>
-                        <p>Title: {val.title}</p>
+                    <div
+                      key={i}
+                      className="mt-2 font-roboto text-lg tracking-wide"
+                    >
+                      <div className="mx-auto font-semibold flex justify-center mb-2 ">
+                        <p className="text-xl w-fit border-b-2 border-blue-600">
+                          {val.title}
+                        </p>
                       </div>
-                      <div className="text-black">
-                        Description: {val.description}
+                      <div
+                        className={`text-black h-14 overflow-hidden text-ellipsis group line-clamp-2   ${
+                          deleteLoad
+                            ? "overflow-visible h-fit line-clamp-none"
+                            : ""
+                        }`}
+                      >
+                        <p className="text-justify">{val.description}</p>
+                        {(() => {
+                          st = false;
+                          if (val.description.length > 210) {
+                            st = true;
+                          }
+                        })()}
                       </div>
+
+                      {deleteLoad ? (
+                        <p
+                          onClick={() => setDeleteLoad(!deleteLoad)}
+                          className="text-blue-500 font-bold cursor-pointer hover:text-blue-700"
+                        >
+                          showless...
+                        </p>
+                      ) : (
+                        <p
+                          onClick={() => setDeleteLoad(!deleteLoad)}
+                          className="text-blue-500 font-bold cursor-pointer hover:text-blue-700 group-target:hidden"
+                        >
+                          {st ? "readmore..." : ""}
+                        </p>
+                      )}
+
                       <div className="select-none overflow-hidden  mt-6 relative ">
                         <Swiper
                           spaceBetween={30}
@@ -198,7 +229,7 @@ function UserPost() {
                                 <img
                                   src={image.url}
                                   alt="post"
-                                  className={`w-[60rem] h-[20rem] select-none object-contain cursor-pointer`}
+                                  className={`w-[60rem] h-[20rem] select-none object-contain cursor-pointer  `}
                                   onDoubleClick={() =>
                                     handleImageDoubleClick(image.url)
                                   }
@@ -222,9 +253,7 @@ function UserPost() {
                 Not Yet Posted
               </div>
               <div className="flex max-sm:flex-col max-sm:items-center mt-20 ">
-                <button
-                  onClick={() => navigator("/createPost", { state: Email })}
-                >
+                <button onClick={() => navigator("/createPost")}>
                   Create Post
                   <div className="star-1">
                     <svg

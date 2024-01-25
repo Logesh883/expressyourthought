@@ -68,7 +68,7 @@ function CreatePost() {
     }
     axios.defaults.withCredentials = true;
     await axios
-      .post(`https://express-be.vercel.app/api/post`, formData, {
+      .post(`http://localhost:4000/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -76,7 +76,6 @@ function CreatePost() {
       })
       .then((res) => {
         setstatus(res.data.msg);
-        console.log(res.data);
         settitle("");
         setdescription("");
         setfiles("");
@@ -114,18 +113,16 @@ function CreatePost() {
         ) : (
           ""
         )}
-        <div className="flex items-center gap-x-32 max-sm:flex-col flex-wrap ">
+        <div className="flex items-center max-sm:flex-col flex-wrap justify-between mx-20">
           {width >= 650 ? (
             <div
-              className="ml-40 w-[30rem] 
+              className="ml-30 w-[30rem] 
           "
             >
               <Design />
             </div>
           ) : (
-            <p className="text-3xl font-title  font-bold my-2">
-              Express Your Thoughts
-            </p>
+            <p className="text-3xl font-title  font-bold my-2">Ideavista</p>
           )}
           <div className="lg:w-[40rem]  flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600  max-sm:mb-20  ">
             <form

@@ -35,7 +35,7 @@ function Navigation({ value }) {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("https://express-be.vercel.app/api/logout", null, {
+      .get("http://localhost:4000/api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -58,7 +58,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`https://express-be.vercel.app/image`, formData, {
+      .post(`http://localhost:4000/image`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -85,7 +85,7 @@ function Navigation({ value }) {
   axios.defaults.withCredentials = true;
   const fetchImages = async () => {
     await axios
-      .get(`https://express-be.vercel.app/fetchImage`, null, {
+      .get(`http://localhost:4000/fetchImage`, null, {
         withCredentials: true,
       })
       .then((res) => {
@@ -124,8 +124,11 @@ function Navigation({ value }) {
       {width >= 650 ? (
         <nav className="h-14 bg-red-200  relative flex text-gray-700 items-center justify-between">
           <div className="ml-7 w-44 ">
-            <p className="text-3xl font-title  font-bold">
-              Express Your Thoughts
+            <p className="text-3xl font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text">
+              Ideavista{" "}
+              <sup className="font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text">
+                24
+              </sup>
             </p>
           </div>
 
@@ -154,6 +157,7 @@ function Navigation({ value }) {
             >
               ADD POSTS
             </p>
+
             <div className="flex gap-x-2 group cursor-pointer items-center">
               <div className="w-12 h-12 rounded-full cursor-pointer">
                 {base64Image ? (
@@ -161,7 +165,7 @@ function Navigation({ value }) {
                     <img
                       src={base64Image}
                       alt="Profile"
-                      className="rounded-full  w-12 h-12  "
+                      className="rounded-full w-12 h-12  "
                     />
                   </div>
                 ) : (

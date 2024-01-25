@@ -14,9 +14,8 @@ function AllPost() {
   const [doubleClick, setDoubleClick] = useState(false);
   const [clickedImage, setClickedImage] = useState(null);
   const [loading, setloading] = useState(true);
-  const navigation = useNavigate();
-  const location = useLocation();
-  const Email = location.state;
+  const [deleteLoad, setDeleteLoad] = useState("");
+  var st;
   const [statuserror, setstatuserror] = useState("");
   const svgStyle = {
     shapeRendering: "geometricPrecision",
@@ -29,14 +28,14 @@ function AllPost() {
   const fetch = async () => {
     try {
       await axios
-        .get("https://express-be.vercel.app/api/allpost", null, {
+        .get("http://localhost:4000/api/allpost", null, {
           withCredentials: true,
         })
         .then((res) => {
           setdata(res.data.fetched);
         });
     } catch (err) {
-      console.log(err);
+      setstatuserror(err.data);
     } finally {
       setloading(false);
     }
@@ -76,9 +75,7 @@ function AllPost() {
           {width >= 650 ? (
             ""
           ) : (
-            <p className="text-3xl font-title  font-bold my-2">
-              Express Your Thoughts
-            </p>
+            <p className="text-3xl font-title  font-bold my-2">Ideavista</p>
           )}
           {loading ? (
             [...Array(5)].map((_, i) => (
@@ -105,10 +102,10 @@ function AllPost() {
           ) : data.length >= 1 ? (
             Array.from(data).map((val, i) => (
               <div
-                className="w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden "
+                className="w-[60rem] min-h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden shadow-inner shadow-blue-200 text-black"
                 key={i}
               >
-                <div className="flex items-center gap-x-2 w-[60rem]">
+                <div className="flex items-center gap-x-2 w-[60rem] font-roboto">
                   <div className="flex items-center gap-x-2 w-[60rem]">
                     <div className="w-10 h-10 rounded-full ">
                       <FeedUserProfile userdata={val.userProfile} />
@@ -118,13 +115,41 @@ function AllPost() {
                     </div>
                   </div>
                 </div>
-                <div key={i} className="mt-2">
-                  <div>
-                    <p>Title: {val.title}</p>
+                <div key={i} className="mt-2 text-lg tracking-wide">
+                  <div className="mx-auto font-semibold flex justify-center mb-2">
+                    <p className="text-xl w-fit border-b-2 border-blue-600">
+                      {" "}
+                      {val.title}
+                    </p>
                   </div>
-                  <div className="text-black">
-                    Description: {val.description}
+                  <div
+                    className={`text-black text-justify  ${
+                      deleteLoad ? "line-clamp-none" : "line-clamp-2"
+                    }`}
+                  >
+                    {val.description}
+                    {(() => {
+                      st = false;
+                      if (val.description.length > 210) {
+                        st = true;
+                      }
+                    })()}
                   </div>
+                  {deleteLoad ? (
+                    <p
+                      onClick={() => setDeleteLoad(!deleteLoad)}
+                      className="text-blue-500 font-bold cursor-pointer hover:text-blue-700"
+                    >
+                      showless...
+                    </p>
+                  ) : (
+                    <p
+                      onClick={() => setDeleteLoad(!deleteLoad)}
+                      className="text-blue-500 font-bold cursor-pointer hover:text-blue-700 group-target:hidden"
+                    >
+                      {st ? "readmore..." : ""}
+                    </p>
+                  )}
                   <div className="select-none overflow-hidden  mt-6 relative">
                     <Swiper
                       spaceBetween={30}
