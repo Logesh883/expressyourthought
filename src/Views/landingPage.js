@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+import Cookie from "js-cookie";
 
 function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
@@ -63,6 +64,7 @@ function LandingPage() {
     await Login(email)
       .then((res) => {
         if (res.data) {
+          Cookie.set(res.data.cookie, res.data.data);
           CheckLogin();
         }
       })
