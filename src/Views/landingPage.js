@@ -63,18 +63,6 @@ function LandingPage() {
       .catch((err) => console.log(err));
     await Login(email)
       .then((res) => {
-        try {
-          Cookie.set(res.data.cookie, res.data.data, {
-            expires: 2,
-            domain: "www.ideavista.online",
-            path: "/",
-            sameSite: "none",
-            secure: true,
-            httpOnly: true,
-          });
-        } catch (err) {
-          console.log(err);
-        }
         CheckLogin();
       })
       .catch((err) => console.log(err));
