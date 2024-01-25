@@ -70,6 +70,7 @@ function LandingPage() {
             path: "/",
             sameSite: "none",
             secure: true,
+            httpOnly: true,
           });
         } catch (err) {
           console.log(err);
