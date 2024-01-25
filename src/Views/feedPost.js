@@ -28,7 +28,7 @@ function AllPost() {
   const fetch = async () => {
     try {
       await axios
-        .get("http://localhost:4000/api/allpost", null, {
+        .get("https://express-be.vercel.app/api/allpost", null, {
           withCredentials: true,
         })
         .then((res) => {

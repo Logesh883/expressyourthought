@@ -18,7 +18,7 @@ function LandingPage() {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("http://localhost:4000/api/logout", null, {
+      .get("https://express-be.vercel.app/api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -50,7 +50,7 @@ function LandingPage() {
     const { name, email, picture } = decode;
     await axios
       .post(
-        "http://localhost:4000/post",
+        "https://express-be.vercel.app/post",
         {
           name,
           email,
@@ -76,7 +76,7 @@ function LandingPage() {
   const CheckLogin = async () => {
     setnavLoad(true);
     return await axios
-      .get("http://localhost:4000/api/check", null, {
+      .get("https://express-be.vercel.app/api/check", null, {
         withCredentials: true,
       })
       .then((res) => {
@@ -93,7 +93,7 @@ function LandingPage() {
 
   const Login = async (email) => {
     return await axios.get(
-      "http://localhost:4000/api/login",
+      "https://express-be.vercel.app/api/login",
       {
         params: { email },
       },
@@ -315,7 +315,6 @@ function LandingPage() {
                         width={150}
                       />
                     </div>
-
                     <p
                       className={`mt-2 ${
                         Checkedstate

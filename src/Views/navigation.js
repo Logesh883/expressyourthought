@@ -35,7 +35,7 @@ function Navigation({ value }) {
   const Logout = async () => {
     googleLogout();
     await axios
-      .get("http://localhost:4000/api/logout", null, {
+      .get("https://express-be.vercel.app/api/logout", null, {
         withCredentials: true,
       })
       .then((res) => console.log(res.data.msg))
@@ -58,7 +58,7 @@ function Navigation({ value }) {
     formData.append("testImage", files);
 
     await axios
-      .post(`http://localhost:4000/image`, formData, {
+      .post(`https://express-be.vercel.app/image`, formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -85,7 +85,7 @@ function Navigation({ value }) {
   axios.defaults.withCredentials = true;
   const fetchImages = async () => {
     await axios
-      .get(`http://localhost:4000/fetchImage`, null, {
+      .get(`https://express-be.vercel.app/fetchImage`, null, {
         withCredentials: true,
       })
       .then((res) => {

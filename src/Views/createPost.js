@@ -68,7 +68,7 @@ function CreatePost() {
     }
     axios.defaults.withCredentials = true;
     await axios
-      .post(`http://localhost:4000/api/post`, formData, {
+      .post(`https://express-be.vercel.app/api/post`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
