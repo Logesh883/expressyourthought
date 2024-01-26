@@ -40,7 +40,6 @@ function AllPost() {
 
   useEffect(() => {
     if (isEndOfPage) {
-      console.log("isend");
       fetch();
     }
   }, [isEndOfPage]);
