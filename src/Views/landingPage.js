@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import "./button.css";
+import "./cookiecard.css";
 import {
   AnimatePresence,
   motion,
@@ -20,7 +21,7 @@ function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
   const [state, setstate] = useState(true);
-  const [Checkedstate, setCheckedstate] = useState(false);
+  const [Cookiestate, setCookieState] = useState(false);
   const navigation = useNavigate();
   const input = useRef();
   const animate = useRef(null);
@@ -31,6 +32,7 @@ function LandingPage() {
   let rendervalue = 1;
 
   const notifyError = (data) => toast.error(data);
+  const notifySuccess = (data) => toast.success(data);
 
   useEffect(() => {
     if (inView && width >= 650) {
@@ -90,8 +92,8 @@ function LandingPage() {
       .get("https://server.ideavista.online/api/logout", null, {
         withCredentials: true,
       })
-      .then((res) => console.log(res.data.msg))
-      .catch((err) => console.log(err))
+      .then((res) => notifySuccess(res.data.msg))
+      .catch((err) => notifyError(err.message))
       .finally(() => (window.location.pathname = "/"));
   };
   useEffect(() => {
@@ -125,12 +127,12 @@ function LandingPage() {
         { withCredentials: true }
       )
       .then(() => {})
-      .catch((err) => console.log(err));
+      .catch((err) => notifyError(err.message));
     await Login(email)
       .then(() => {
         CheckLogin();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => notifyError(err.message));
   };
 
   useEffect(() => {
@@ -171,13 +173,14 @@ function LandingPage() {
   };
 
   return (
-    <div className="  overflow-hidden box-content">
-      <div className=" flex justify-between h-40 max-sm:justify-around lg:mx-20 items-center p-2">
+    <div className="  overflow-hidden box-content relative">
+      <div className=" flex justify-between h-40 max-sm:justify-between lg:mx-20 items-center p-2 ">
         <svg
           viewBox="0 150 540 100"
           data-background-color="#162836"
           preserveAspectRatio="xMidYMid meet"
           height="300"
+          className="max-sm:-ml-28 "
           width="500"
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -386,8 +389,9 @@ function LandingPage() {
                         });
                       }}
                     >
-                      <button className="bg-green-500">
-                        Begin <ArrowDownwardSharp />
+                      <button className="font-roboto bg-green-500">
+                        Let's Begin
+                        <ArrowDownwardSharp />
                       </button>
                     </div>
                     <RWebShare
@@ -436,25 +440,33 @@ function LandingPage() {
                     <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
                   </div>
                 ) : (
-                  <div className="flex gap-x-3 flex-col">
+                  <div className="flex gap-x-3 flex-nowrap">
                     <div
-                      className="mx-auto"
-                      onClick={() => window.scrollTo(0, window.innerHeight)}
+                      className="mx-auto flex "
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 1000,
+                          behavior: "smooth",
+                        });
+                      }}
                     >
-                      <button className="bg-green-500">
-                        Begin <ArrowDownwardSharp />
+                      <button className="bg-green-500 flex w-32 h-14">
+                        Begin{" "}
+                        <span>
+                          <ArrowDownwardSharp />
+                        </span>
                       </button>
-                      <RWebShare
-                        data={{
-                          text: "Ideavista",
-                          title: "Ideavista share",
-                          url: "https://www.ideavista.online",
-                        }}
-                        onClick={() => console.log("Shared")}
-                      >
-                        <button>share</button>
-                      </RWebShare>
                     </div>
+                    {/* <RWebShare
+                      data={{
+                        text: "Ideavista",
+                        title: "Ideavista share",
+                        url: "https://www.ideavista.online",
+                      }}
+                      onClick={() => console.log("Shared")}
+                    >
+                      <Share sx={{ fontSize: "30px" }} />
+                    </RWebShare> */}
                   </div>
                 )}
               </div>
@@ -479,8 +491,8 @@ function LandingPage() {
           </div>
         )}
       </div>
-      <motion.div className="flex  justify-evenly font-roboto flex-wrap items-center max-sm:h-[20rem]">
-        <img src={header} alt="header" className="flex-1 w-full" />
+      <motion.div className="flex  justify-evenly font-roboto flex-wrap items-center max-sm:h-[12rem]">
+        <img src={header} alt="header" className="flex-1 w-full " />
       </motion.div>
       <AnimatePresence>
         <div
@@ -526,11 +538,11 @@ function LandingPage() {
           </div>
         </div>
         <div
-          className="flex flex-col justify-start items-center gap-y-2 mt-4 flex-wrap mb-2"
+          className="flex flex-col text-justify justify-start items-center gap-y-2 mt-4 flex-wrap mb-2 max-sm:p-3"
           ref={animate}
         >
           <motion.p
-            className="text-lg font-semibold hover:underline w-fit"
+            className="text-lg text-justify font-semibold hover:underline w-fit"
             animate={animation2}
             initial={width >= 650 ? { opacity: 0 } : ""}
           >
@@ -561,8 +573,8 @@ function LandingPage() {
           </motion.ol>
         </div>
       </AnimatePresence>
-      <div className="flex flex-col justify-center mx-auto  gap-y-3 mb-6 ">
-        <div className="mx-auto cursor-not-allowed">
+      <div className="flex flex-col justify-between max-sm:justify-around mx-auto gap-y-3 mb-6 ">
+        <div className="mx-auto ">
           <GoogleLogin
             onSuccess={(res) => handleSuccess(res)}
             onError={(err) => console.log(err)}
@@ -571,7 +583,7 @@ function LandingPage() {
             width={400}
           />
         </div>
-        <div className="mx-auto">
+        <div className=" mx-auto ">
           <p className="mx-2 w-fit">
             <input type="checkbox" ref={input} />
             Accept our{" "}
@@ -584,6 +596,25 @@ function LandingPage() {
             </span>
           </p>
         </div>
+      </div>
+      <div className="fixed top-[33rem] left-3">
+        {rendervalue === 1 && !Cookiestate && (
+          <div className="cookie-card">
+            <span className="title">🍪 Cookie Notice</span>
+            <p className="description">
+              We use cookies to ensure that we give you the best experience on
+              our website. <a href="#">Read Terms and Policy</a>.{" "}
+            </p>
+            <div className="actions">
+              <button
+                className="accept hover:text-white"
+                onClick={() => setCookieState(!Cookiestate)}
+              >
+                Accept
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -111,7 +111,7 @@ function CreatePost() {
               <Design />
             </div>
           ) : (
-            <p className="text-3xl font-title  font-bold my-2">Ideavista</p>
+            <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
           )}
           <div className="lg:w-[40rem]  flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600  max-sm:mb-20  ">
             <form

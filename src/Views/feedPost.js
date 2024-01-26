@@ -76,7 +76,7 @@ function AllPost() {
           {width >= 650 ? (
             ""
           ) : (
-            <p className="text-3xl font-title  font-bold my-2">Ideavista</p>
+            <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
           )}
           {loading ? (
             [...Array(5)].map((_, i) => (

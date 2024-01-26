@@ -1,0 +1,12 @@
+.footer-bg-animation {
+  animation: gradientAnimation 15s linear infinite alternate-reverse;
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
