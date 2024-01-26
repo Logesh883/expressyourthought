@@ -597,7 +597,18 @@ function LandingPage() {
           </p>
         </div>
       </div>
-      <div className="fixed top-[33rem] left-3">
+      <motion.div
+        className="fixed top-[33rem] max-sm:top-[35rem] left-3"
+        initial={{ x: -70, opacity: 0 }}
+        animate={{
+          x: 0,
+          opacity: 1,
+          transition: {
+            ease: "easeInOut",
+            duration: 0.8,
+          },
+        }}
+      >
         {rendervalue === 1 && !Cookiestate && (
           <div className="cookie-card">
             <span className="title">🍪 Cookie Notice</span>
@@ -615,7 +626,7 @@ function LandingPage() {
             </div>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 }
