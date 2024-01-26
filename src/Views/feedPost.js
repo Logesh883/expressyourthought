@@ -6,7 +6,7 @@ import axios from "axios";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FeedUserProfile from "./FeedUserProfile";
 import "./userPostButton.css";
-import { useLocation, useNavigate } from "react-router-dom";
+import { RWebShare } from "react-web-share";
 import { Alert } from "@mui/material";
 
 function AllPost() {
@@ -64,6 +64,7 @@ function AllPost() {
   const handleCloseModal = () => {
     setDoubleClick(false);
   };
+
   return (
     <>
       <div className="">
@@ -113,6 +114,9 @@ function AllPost() {
                     <div>
                       <p className=" h-7">{val.username}</p>
                     </div>
+                    <RWebShare>
+                      <button>Share</button>
+                    </RWebShare>
                   </div>
                 </div>
                 <div key={i} className="mt-2 text-lg tracking-wide">

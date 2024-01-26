@@ -7,20 +7,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Design from "../LoginComponents/Logo_Design";
 import { Alert } from "@mui/material";
+import toast, { Toaster } from "react-hot-toast";
 
 function CreatePost() {
   const [title, settitle] = useState("");
   const [description, setdescription] = useState("");
   const [files, setfiles] = useState([]);
-
-  const [status, setstatus] = useState("");
-  const [statuserror, setstatuserror] = useState("");
-  const location = useLocation();
   const [loadingPost, setLoadingPost] = useState(false);
-  const Email = location.state;
   const imageRef = useRef([]);
   const [width, setWidth] = useState(window.innerWidth);
-  const navigation = useNavigate();
   const svgStyle = {
     shapeRendering: "geometricPrecision",
     textRendering: "geometricPrecision",
@@ -28,6 +23,9 @@ function CreatePost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
+
+  const notifyError = (data) => toast.error(data);
+  const notifySuccess = (data) => toast.success(data);
 
   useEffect(() => {
     const handleResize = () => {
@@ -51,19 +49,15 @@ function CreatePost() {
       formData.append("postimage", files[index]);
     }
     if (title === "" || description === "") {
-      setstatuserror("Fill required fields");
+      notifyError("Fill required fields");
       setLoadingPost(false);
-      setTimeout(() => {
-        setstatuserror("");
-      }, 4000);
+
       return;
     }
     if (files.length > 4) {
-      setstatuserror("Only 4 Images allowed per Post");
+      notifyError("Only 4 Images allowed per Post");
       setLoadingPost(false);
-      setTimeout(() => {
-        setstatuserror("");
-      }, 3000);
+
       return;
     }
     axios.defaults.withCredentials = true;
@@ -75,20 +69,14 @@ function CreatePost() {
         withCredentials: true,
       })
       .then((res) => {
-        setstatus(res.data.msg);
+        notifySuccess(res.data.msg);
         settitle("");
         setdescription("");
         setfiles("");
         imageRef.current = "";
-        setTimeout(() => {
-          setstatus("");
-        }, 4000);
       })
       .catch((err) => {
-        setstatuserror(err.response.data.err);
-        setTimeout(() => {
-          setstatuserror("");
-        }, 4000);
+        notifyError(err.response.data.err);
       })
       .finally(() => {
         setLoadingPost(false);
@@ -114,6 +102,7 @@ function CreatePost() {
           ""
         )}
         <div className="flex items-center max-sm:flex-col flex-wrap justify-between mx-20">
+          <Toaster />
           {width >= 650 ? (
             <div
               className="ml-30 w-[30rem] 
@@ -349,23 +338,6 @@ function CreatePost() {
           </div>
         </div>
       </div>
-
-      {status && (
-        <div className="absolute w-[20%] right-7 top-14 max-sm:fixed max-sm:w-96 max-sm:left-2">
-          <Alert severity="success" sx={{ width: "100%" }}>
-            <p className="capitalize font-semibold tracking-wider">{status}</p>
-          </Alert>
-        </div>
-      )}
-      {statuserror && (
-        <div className="absolute w-[20%] right-7 top-14 max-sm:fixed max-sm:w-96 max-sm:left-2">
-          <Alert severity="error" sx={{ width: "100%" }}>
-            <p className="capitalize font-semibold tracking-wider">
-              {statuserror}
-            </p>
-          </Alert>
-        </div>
-      )}
     </div>
   );
 }

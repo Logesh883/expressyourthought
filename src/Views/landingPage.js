@@ -1,12 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Design from "../LoginComponents/Logo_Design";
+import toast, { Toaster } from "react-hot-toast";
 import "./button.css";
-import { motion } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useInView,
+} from "framer-motion";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
-import Cookie from "js-cookie";
+import header from "../Images/business-startup.jpg";
+import { ArrowDownwardSharp, Share } from "@mui/icons-material";
+
+import { RWebShare } from "react-web-share";
 
 function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
@@ -15,6 +23,66 @@ function LandingPage() {
   const [Checkedstate, setCheckedstate] = useState(false);
   const navigation = useNavigate();
   const input = useRef();
+  const animate = useRef(null);
+  const inView = useInView(animate);
+  const animation = useAnimation();
+  const animation1 = useAnimation();
+  const animation2 = useAnimation();
+  let rendervalue = 1;
+
+  const notifyError = (data) => toast.error(data);
+
+  useEffect(() => {
+    if (inView && width >= 650) {
+      animation.start({
+        x: 0,
+        opacity: 1,
+        transition: {
+          ease: "easeInOut",
+          duration: 0.6,
+        },
+      });
+    }
+    if (!inView && width >= 650) {
+      animation.start({
+        x: "-10vw",
+        opacity: 0,
+      });
+    }
+    if (inView && width >= 650) {
+      animation1.start({
+        x: 0,
+        opacity: 1,
+        transition: {
+          ease: "easeInOut",
+          duration: 0.6,
+          delayChildren: 2,
+        },
+      });
+    }
+    if (!inView && width >= 650) {
+      animation1.start({
+        x: "10vw",
+        opacity: 0,
+      });
+    }
+    if (inView && width >= 650) {
+      animation2.start({
+        y: 0,
+        opacity: 1,
+        transition: {
+          ease: "easeInOut",
+          duration: 0.6,
+        },
+      });
+    }
+    if (!inView && width >= 650) {
+      animation2.start({
+        y: "-10vw",
+        opacity: 0,
+      });
+    }
+  }, [inView, animation]);
 
   const Logout = async () => {
     googleLogout();
@@ -39,10 +107,7 @@ function LandingPage() {
 
   const handleSuccess = async (res) => {
     if (!input.current.checked) {
-      setCheckedstate(true);
-      setTimeout(() => {
-        setCheckedstate(false);
-      }, 4000);
+      notifyError("Accept terms and conditions to proceed");
       return;
     }
     const decode = jwtDecode(res.credential);
@@ -70,7 +135,6 @@ function LandingPage() {
 
   useEffect(() => {
     CheckLogin();
-    console.log(document.domain);
   }, []);
 
   const CheckLogin = async () => {
@@ -85,7 +149,12 @@ function LandingPage() {
           navigation("/feedpost");
         }
       })
-      .catch((err) => console.log(err))
+      .catch((err) => {
+        if (rendervalue >= 3) {
+          notifyError(err.message);
+        }
+        rendervalue++;
+      })
       .finally(() => {
         setnavLoad(false);
       });
@@ -293,7 +362,9 @@ function LandingPage() {
             ></rect>
           </g>
         </svg>
-
+        <div>
+          <Toaster position="top-center" reverseOrder={false} />
+        </div>
         {width >= 650 ? (
           <div>
             {state ? (
@@ -305,45 +376,33 @@ function LandingPage() {
                     <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
                   </div>
                 ) : (
-                  <div className="flex gap-x-3 flex-col">
-                    <div className="mx-auto">
-                      <GoogleLogin
-                        onSuccess={(res) => handleSuccess(res)}
-                        onError={(err) => console.log(err)}
-                        theme="filled_blue"
-                        shape="square"
-                        width={150}
-                      />
-                    </div>
-                    <p
-                      className={`mt-2 ${
-                        Checkedstate
-                          ? "text-red-600 underline animate-bubble "
-                          : ""
-                      }`}
+                  <div className="flex gap-x-3 items-center">
+                    <div
+                      className="mx-auto  "
+                      onClick={() => {
+                        window.scrollTo({
+                          top: 1000,
+                          behavior: "smooth",
+                        });
+                      }}
                     >
-                      <input type="checkbox" ref={input} />
-                      Accept our{" "}
-                      <span
-                        className={`${
-                          Checkedstate
-                            ? "cursor-pointer"
-                            : "cursor-pointer underline underline-offset-2 text-blue-500 "
-                        }`}
-                      >
-                        Terms and conditions{" "}
-                      </span>
-                      and{" "}
-                      <span
-                        className={`${
-                          Checkedstate
-                            ? "cursor-pointer"
-                            : " cursor-pointer underline underline-offset-2 text-blue-500"
-                        }`}
-                      >
-                        Privacy Policy
-                      </span>
-                    </p>
+                      <button className="bg-green-500">
+                        Begin <ArrowDownwardSharp />
+                      </button>
+                    </div>
+                    <RWebShare
+                      data={{
+                        text: "Ideavista",
+                        title: "Ideavista share",
+                        url: "https://www.ideavista.online",
+                      }}
+                      onClick={() => console.log("Shared")}
+                    >
+                      <p className="cursor-pointer text-blue-600">
+                        {" "}
+                        <Share sx={{ fontSize: "30px" }} />
+                      </p>
+                    </RWebShare>
                   </div>
                 )}
               </div>
@@ -378,24 +437,24 @@ function LandingPage() {
                   </div>
                 ) : (
                   <div className="flex gap-x-3 flex-col">
-                    <div className="ml-auto mx-3">
-                      <GoogleLogin
-                        onSuccess={(res) => handleSuccess(res)}
-                        onError={(err) => console.log(err)}
-                        type="icon"
-                      />
+                    <div
+                      className="mx-auto"
+                      onClick={() => window.scrollTo(0, window.innerHeight)}
+                    >
+                      <button className="bg-green-500">
+                        Begin <ArrowDownwardSharp />
+                      </button>
+                      <RWebShare
+                        data={{
+                          text: "Ideavista",
+                          title: "Ideavista share",
+                          url: "https://www.ideavista.online",
+                        }}
+                        onClick={() => console.log("Shared")}
+                      >
+                        <button>share</button>
+                      </RWebShare>
                     </div>
-                    <p className="mt-2 w-32">
-                      <input type="checkbox" ref={input} />
-                      Accept our{" "}
-                      <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
-                        Terms and conditions{" "}
-                      </span>
-                      and{" "}
-                      <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
-                        Privacy Policy
-                      </span>
-                    </p>
                   </div>
                 )}
               </div>
@@ -420,94 +479,111 @@ function LandingPage() {
           </div>
         )}
       </div>
-      <div className="flex lg:gap-x-80 max-sm:gap-x-10 justify-center mt-6  flex-wrap">
-        <div className="w-[20rem] text-justify ">
-          <motion.p
-            className="text-xl font-bold uppercase tracking-wider relative w-fit home "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            About
-          </motion.p>
-          <motion.p
-            className="mt-1 text-slate-600 font-semibold leading-7 tracking-wide "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            "Ideavista" is a social media platform designed to provide users
-            with a space to share their thoughts, ideas, and experiences through
-            posts. Inspired by platforms like Instagram, it offers a visually
-            appealing and user-friendly interface to encourage users to express
-            themselves creatively.
-          </motion.p>
-        </div>
-        <div className="w-[20rem] text-justify max-sm:mt-3 ">
-          <motion.p
-            className="text-xl font-bold uppercase tracking-wider relative w-fit home "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            Goals
-          </motion.p>
-          <motion.p
-            className="mt-1 text-slate-600 font-semibold leading-7 tracking-wide "
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 1.4 }}
-          >
-            The primary goal of "Ideavista" is to provide a platform for users
-            to share their thoughts and ideas in a visually appealing and
-            interactive manner. The project aims to foster a sense of community,
-            creativity, and self-expression.
-          </motion.p>
-        </div>
-      </div>
-      <div className="flex flex-col justify-start items-center gap-y-2 mt-4 flex-wrap mb-2">
-        <motion.p
-          className="text-lg font-semibold hover:underline w-fit"
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 2 }}
+      <motion.div className="flex  justify-evenly font-roboto flex-wrap items-center max-sm:h-[20rem]">
+        <img src={header} alt="header" className="flex-1 w-full" />
+      </motion.div>
+      <AnimatePresence>
+        <div
+          className="flex lg:gap-x-80 max-sm:gap-x-10 justify-center mt-6  flex-wrap"
+          ref={animate}
         >
-          Release Notes
-          <span className="ml-2">(Version 1.0)</span>
-        </motion.p>
-        <motion.ol className="ml-4 list-disc max-sm:list-disc text-lg tracking-wider  flex flex-col flex-wrap p-2 ">
-          <motion.li
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 2.6 }}
+          <div className="w-[20rem] text-justify ">
+            <motion.p
+              className="text-xl font-bold uppercase tracking-wider relative w-fit home "
+              animate={animation}
+              initial={width >= 650 ? { opacity: 0 } : ""}
+            >
+              About
+            </motion.p>
+            <motion.p
+              className="mt-1 text-slate-600 font-semibold leading-7 tracking-wide "
+              animate={animation}
+            >
+              "Ideavista" is a social media platform designed to provide users
+              with a space to share their thoughts, ideas, and experiences
+              through posts. Inspired by platforms like Instagram, it offers a
+              visually appealing and user-friendly interface to encourage users
+              to express themselves creatively.
+            </motion.p>
+          </div>
+          <div className="w-[20rem] text-justify max-sm:mt-3 " ref={animate}>
+            <motion.p
+              className="text-xl font-bold uppercase tracking-wider relative w-fit home "
+              animate={animation1}
+              initial={width >= 650 ? { opacity: 0 } : ""}
+            >
+              Goals
+            </motion.p>
+            <motion.p
+              className="mt-1 text-slate-600 font-semibold leading-7 tracking-wide "
+              animate={animation1}
+            >
+              The primary goal of "Ideavista" is to provide a platform for users
+              to share their thoughts and ideas in a visually appealing and
+              interactive manner. The project aims to foster a sense of
+              community, creativity, and self-expression.
+            </motion.p>
+          </div>
+        </div>
+        <div
+          className="flex flex-col justify-start items-center gap-y-2 mt-4 flex-wrap mb-2"
+          ref={animate}
+        >
+          <motion.p
+            className="text-lg font-semibold hover:underline w-fit"
+            animate={animation2}
+            initial={width >= 650 ? { opacity: 0 } : ""}
           >
-            Empowers users to express ideas and thoughts seamlessly through
-            images and content
-          </motion.li>
-          <motion.li
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 3.2 }}
+            Release Notes
+          </motion.p>
+          <motion.ol
+            className="ml-4 list-disc max-sm:list-disc text-lg tracking-wider  flex flex-col flex-wrap p-2 "
+            initial={width >= 650 ? { opacity: 0 } : ""}
+            ref={animate}
+            animate={animation2}
           >
-            Each user is assigned a unique profile for sharing posts on the
-            platform.
-          </motion.li>
-          <motion.li
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 3.8 }}
-          >
-            Security is bolstered through the implementation of authentication.
-          </motion.li>
-          <motion.li
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 4.2 }}
-          >
-            Enhance your profile on 'Ideavista' by setting a unique profile
-            picture through the user settings.
-          </motion.li>
-        </motion.ol>
+            <motion.li animate={animation2}>
+              Empowers users to express ideas and thoughts seamlessly through
+              images and content
+            </motion.li>
+            <motion.li animate={animation2}>
+              Each user is assigned a unique profile for sharing posts on the
+              platform.
+            </motion.li>
+            <motion.li animate={animation2}>
+              Security is bolstered through the implementation of
+              authentication.
+            </motion.li>
+            <motion.li animate={animation2}>
+              Enhance your profile on 'Ideavista' by setting a unique profile
+              picture through the user settings.
+            </motion.li>
+          </motion.ol>
+        </div>
+      </AnimatePresence>
+      <div className="flex flex-col justify-center mx-auto  gap-y-3 mb-6 ">
+        <div className="mx-auto cursor-not-allowed">
+          <GoogleLogin
+            onSuccess={(res) => handleSuccess(res)}
+            onError={(err) => console.log(err)}
+            theme="filled_blue"
+            shape="square"
+            width={400}
+          />
+        </div>
+        <div className="mx-auto">
+          <p className="mx-2 w-fit">
+            <input type="checkbox" ref={input} />
+            Accept our{" "}
+            <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+              Terms and conditions{" "}
+            </span>
+            and{" "}
+            <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+              Privacy Policy
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
