@@ -16,6 +16,35 @@ function AllPost() {
   const [deleteLoad, setDeleteLoad] = useState("");
   var st;
 
+  const [isEndOfPage, setIsEndOfPage] = useState(false);
+
+  const handleScroll = () => {
+    const scrolledHeight = window.scrollY;
+    const totalHeight = document.documentElement.scrollHeight;
+    const windowHeight = window.innerHeight;
+
+    if (scrolledHeight + windowHeight >= totalHeight - 50) {
+      setIsEndOfPage(true);
+    } else {
+      setIsEndOfPage(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isEndOfPage) {
+      console.log("isend");
+      fetch();
+    }
+  }, [isEndOfPage]);
+
   const svgStyle = {
     shapeRendering: "geometricPrecision",
     textRendering: "geometricPrecision",

@@ -96,9 +96,9 @@ function Navigation({ value }) {
       })
       .catch((err) => {
         notifyError("Update Your Profile Picture!");
-        if (err.response.request.status === 401) {
-          window.location.pathname = "/";
-        }
+        // if (err.response.request.status === 401) {
+        //   window.location.pathname = "/";
+        // }
       });
   };
 
