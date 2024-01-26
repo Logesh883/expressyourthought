@@ -11,6 +11,7 @@ import { Alert } from "@mui/material";
 import "swiper/css/pagination";
 import "./userPostButton.css";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import toast, { Toaster } from "react-hot-toast";
 
 function UserPost() {
   const [doubleClick, setDoubleClick] = useState(false);
@@ -29,8 +30,9 @@ function UserPost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
-  const desc = useRef("");
   const [postLoading, setPostLoading] = useState({});
+  const notifyError = (data) => toast.error(data);
+
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -80,7 +82,7 @@ function UserPost() {
 
         setUserPost(response.data.post);
       } catch (err) {
-        console.log(err);
+        notifyError(err.message);
       } finally {
         setLoading(false);
       }
@@ -112,7 +114,9 @@ function UserPost() {
         <div className="max-sm:overflow-hidden">
           <Navigation1 value={"myPost"} />
         </div>
-
+        <div>
+          <Toaster />
+        </div>
         <div className="flex gap-x-20 flex-wrap justify-center overflow-hidden lg:mt-10 max-sm:mx-2 max-sm:mb-20">
           {width >= 650 ? (
             ""

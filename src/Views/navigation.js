@@ -14,6 +14,7 @@ import {
   PortraitOutlined,
 } from "@mui/icons-material";
 import { googleLogout } from "@react-oauth/google";
+import toast, { Toaster } from "react-hot-toast";
 
 function Navigation({ value }) {
   const [files, setfiles] = useState(null);
@@ -27,10 +28,11 @@ function Navigation({ value }) {
   const fileInputRef = useRef(null);
   const [width, setWidth] = useState(window.innerWidth);
   const navigation = useNavigate();
-  const [status, setstatus] = useState("");
-  const [statuserror, setstatuserror] = useState("");
   const [username, setusername] = useState("");
   axios.defaults.withCredentials = true;
+
+  const notifyError = (data) => toast.error(data);
+  const notifySuccess = (data) => toast.success(data);
 
   const Logout = async () => {
     googleLogout();
@@ -49,10 +51,7 @@ function Navigation({ value }) {
     e.preventDefault();
 
     if (!files) {
-      setstatuserror("Please select a file to upload.");
-      setTimeout(() => {
-        setstatuserror("");
-      }, 4000);
+      notifyError("Please select a file to upload.");
       return;
     }
     setload(true);
@@ -64,14 +63,11 @@ function Navigation({ value }) {
         withCredentials: true,
       })
       .then((res) => {
-        setstatus(res.data.msg);
+        notifySuccess(res.data.msg);
         fileInputRef.current.value = null;
         setfiles("");
         setupload(false);
         setnavProfile(false);
-        setTimeout(() => {
-          setstatus("");
-        }, 5000);
       })
       .catch((err) => {
         console.log(err);
@@ -92,20 +88,17 @@ function Navigation({ value }) {
       })
       .then((res) => {
         if (res.status === 401) {
-          console.log("not Autorization");
+          notifyError("not Autorization");
         }
         setBase64Image(res.data.fetched.Profile);
 
         setusername(res.data.fetched.UserName);
       })
       .catch((err) => {
-        setstatuserror("Update Your Profile Picture!");
+        notifyError("Update Your Profile Picture!");
         if (err.response.request.status === 401) {
           window.location.pathname = "/";
         }
-        setTimeout(() => {
-          setstatuserror("");
-        }, 3000);
       });
   };
 
@@ -133,7 +126,9 @@ function Navigation({ value }) {
               </sup>
             </p>
           </div>
-
+          <div>
+            <Toaster />
+          </div>
           <div className="flex gap-x-20 mx-10 items-center text-stone-700 relative ">
             <p
               className={`cursor-pointer font-bold font-serif relative  uppercase home ${
@@ -288,23 +283,6 @@ function Navigation({ value }) {
           </div>
         </div>
       )}
-
-      <div className="w-full relative z-50">
-        {status && (
-          <div className="absolute w-[20%] right-7 top-2 max-sm:fixed max-sm:w-96 max-sm:left-2">
-            <Alert severity="success" sx={{ width: "100%" }}>
-              {status}
-            </Alert>
-          </div>
-        )}
-        {statuserror && (
-          <div className="absolute w-[20%] right-7 top-2 max-sm:fixed max-sm:w-96 max-sm:left-2">
-            <Alert severity="error" sx={{ width: "100%" }}>
-              {statuserror}
-            </Alert>
-          </div>
-        )}
-      </div>
 
       {upload && (
         <div

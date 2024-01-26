@@ -114,9 +114,6 @@ function AllPost() {
                     <div>
                       <p className=" h-7">{val.username}</p>
                     </div>
-                    <RWebShare>
-                      <button>Share</button>
-                    </RWebShare>
                   </div>
                 </div>
                 <div key={i} className="mt-2 text-lg tracking-wide">

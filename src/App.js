@@ -1,14 +1,10 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Signup from "./LoginComponents/signup";
-import Login from "./LoginComponents/login";
 
-import Loader from "./LoginComponents/Loader";
-import Navigation from "./Views/navigation";
 import CreatePost from "./Views/createPost";
 import UserPost from "./Views/userpost";
 import allPost from "./Views/feedPost";
-import Smallloader from "./LoginComponents/smallloader";
+
 import LandingPage from "./Views/landingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 const client_id =

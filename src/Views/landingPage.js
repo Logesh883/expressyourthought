@@ -127,7 +127,7 @@ function LandingPage() {
       .then(() => {})
       .catch((err) => console.log(err));
     await Login(email)
-      .then((res) => {
+      .then(() => {
         CheckLogin();
       })
       .catch((err) => console.log(err));
