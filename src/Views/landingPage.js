@@ -32,6 +32,7 @@ function LandingPage() {
   let rendervalue = 1;
 
   const notifyError = (data) => toast.error(data);
+  const notifyLoading = (data) => toast.success(data);
   const notifySuccess = (data) => toast.success(data);
 
   useEffect(() => {
@@ -114,7 +115,6 @@ function LandingPage() {
     }
     const decode = jwtDecode(res.credential);
     setstate(!state);
-    console.log(decode);
     const { name, email, picture } = decode;
     await axios
       .post(
@@ -400,7 +400,7 @@ function LandingPage() {
                         title: "Ideavista share",
                         url: "https://www.ideavista.online",
                       }}
-                      onClick={() => console.log("Shared")}
+                      onClick={() => notifyLoading("Shared")}
                     >
                       <p className="cursor-pointer text-blue-600">
                         {" "}
@@ -457,16 +457,6 @@ function LandingPage() {
                         </span>
                       </button>
                     </div>
-                    {/* <RWebShare
-                      data={{
-                        text: "Ideavista",
-                        title: "Ideavista share",
-                        url: "https://www.ideavista.online",
-                      }}
-                      onClick={() => console.log("Shared")}
-                    >
-                      <Share sx={{ fontSize: "30px" }} />
-                    </RWebShare> */}
                   </div>
                 )}
               </div>

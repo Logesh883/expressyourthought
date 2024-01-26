@@ -41,10 +41,10 @@ function Navigation({ value }) {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data.msg);
+        notifySuccess(res.data.msg);
         navigation("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => notifyError(err.message || "Logout Error"));
   };
 
   const Upload = async (e) => {
@@ -70,7 +70,7 @@ function Navigation({ value }) {
         setnavProfile(false);
       })
       .catch((err) => {
-        console.log(err);
+        notifyError(err.message || "Error in upload");
       })
       .finally(() => {
         setload(false);

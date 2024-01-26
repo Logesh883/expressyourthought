@@ -89,20 +89,20 @@ function CreatePost() {
   };
 
   return (
-    <div className="bg-slate-100 min-h-[110vh] max-sm:min-h-screen">
+    <div className="bg-slate-100  min-h-[110vh] max-sm:min-h-screen">
       <div>
         <Navigation value={"addPost"} />
       </div>
-      <div className="  lg:mt-3  ">
+      <Toaster />
+      <div className=" flex max-sm:flex max-sm:flex-wrap max-sm:justify-center lg:mt-3   md:mb-6 ">
         {width >= 650 ? (
-          <p className="text-center text-2xl font-bold uppercase tracking-wider">
+          <p className="text-center text-2xl font-bold uppercase tracking-wider md:hidden">
             Create Post
           </p>
         ) : (
           ""
         )}
-        <div className="flex items-center max-sm:flex-col flex-wrap justify-between mx-20">
-          <Toaster />
+        <div className="flex items-center lg:w-screen  max-sm:flex-col flex-wrap justify-between mx-20">
           {width >= 650 ? (
             <div
               className="ml-30 w-[30rem] 
@@ -113,11 +113,11 @@ function CreatePost() {
           ) : (
             <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
           )}
-          <div className="lg:w-[40rem]  flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600  max-sm:mb-20  ">
+          <div className="lg:w-[40rem]  max-sm:flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600   max-sm:mb-20 ">
             <form
               onSubmit={(e) => Postcreation(e)}
               encType="multipart/form-data"
-              className=" max-sm:w-[340px] p-5 overflow-hidden rounded-lg "
+              className=" max-sm:w-[340px] flex flex-col flex-wrap p-5 overflow-hidden rounded-lg "
             >
               <div className="my-2 lg:ml-4">
                 <label className="text-lg uppercase tracking-wider ">

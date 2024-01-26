@@ -32,6 +32,7 @@ function UserPost() {
   };
   const [postLoading, setPostLoading] = useState({});
   const notifyError = (data) => toast.error(data);
+  const nottifySuccess = (data) => toast.success(data);
 
   useEffect(() => {
     const handleResize = () => {
@@ -96,9 +97,9 @@ function UserPost() {
     await axios
       .delete(`https://server.ideavista.online/api/removePost/${val}`)
       .then((res) => {
-        setstatusdelete(res.data.message);
+        nottifySuccess(res.data.message);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => notifyError(err.message || "Not deleted"))
       .finally(() => {
         setPostLoading((prev) => ({ ...prev, [val]: false }));
       });
@@ -110,7 +111,7 @@ function UserPost() {
   var st;
   return (
     <React.Fragment>
-      <div className="">
+      <div className="min-h-[38rem]">
         <div className="max-sm:overflow-hidden">
           <Navigation1 value={"myPost"} />
         </div>
@@ -252,7 +253,7 @@ function UserPost() {
               </div>
             ))
           ) : (
-            <div className="flex flex-wrap items-center flex-col ">
+            <div className="flex flex-wrap items-center flex-col  ">
               <div className="font-serif text-4xl font-semibold text-blue-600 capitalize tracking-wider max-sm:mt-20">
                 Not Yet Posted
               </div>
@@ -399,24 +400,6 @@ function UserPost() {
               />
             </div>
           </div>
-        </div>
-      )}
-      {statusdelete && (
-        <div className=" z-50 absolute w-[20%] right-7 top-14 max-sm:fixed max-sm:w-96 max-sm:left-2 max-sm:top-2">
-          <Alert severity="success" sx={{ width: "100%" }}>
-            <p className="capitalize font-semibold tracking-wider">
-              {statusdelete}
-            </p>
-          </Alert>
-        </div>
-      )}
-      {statusdelete === "Autorization failed Login again" && (
-        <div className=" z-50 absolute w-[20%] right-7 top-14 max-sm:fixed max-sm:w-96 max-sm:left-2 max-sm:top-2">
-          <Alert severity="warning" sx={{ width: "100%" }}>
-            <p className="capitalize font-semibold tracking-wider">
-              {statusdelete}
-            </p>
-          </Alert>
         </div>
       )}
     </React.Fragment>

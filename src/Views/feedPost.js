@@ -6,8 +6,7 @@ import axios from "axios";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FeedUserProfile from "./FeedUserProfile";
 import "./userPostButton.css";
-import { RWebShare } from "react-web-share";
-import { Alert } from "@mui/material";
+import toast from "react-hot-toast";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -16,7 +15,7 @@ function AllPost() {
   const [loading, setloading] = useState(true);
   const [deleteLoad, setDeleteLoad] = useState("");
   var st;
-  const [statuserror, setstatuserror] = useState("");
+
   const svgStyle = {
     shapeRendering: "geometricPrecision",
     textRendering: "geometricPrecision",
@@ -24,6 +23,7 @@ function AllPost() {
     fillRule: "evenodd",
     clipRule: "evenodd",
   };
+  const notifyError = (data) => toast.error(data);
   axios.defaults.withCredentials = true;
   const fetch = async () => {
     try {
@@ -35,7 +35,7 @@ function AllPost() {
           setdata(res.data.fetched);
         });
     } catch (err) {
-      setstatuserror(err.data);
+      notifyError("Error in fetching data");
     } finally {
       setloading(false);
     }
@@ -67,7 +67,7 @@ function AllPost() {
 
   return (
     <>
-      <div className="">
+      <div className="min-h-[38rem]">
         {" "}
         <div className="">
           <Navigation1 value={"allPost"} />
@@ -186,9 +186,136 @@ function AllPost() {
               </div>
             ))
           ) : (
-            <p className="font-serif text-4xl font-semibold text-blue-600 capitalize tracking-wider max-sm:text-2xl max-sm:mt-20 lg:mb-6">
-              Server has no Post
-            </p>
+            <div>
+              <p className="font-serif text-4xl font-semibold text-blue-600 capitalize tracking-wider max-sm:text-2xl max-sm:mt-20 lg:mb-6">
+                Server has no Post
+              </p>
+              <div className="flex justify-center items-center my-3 flex-col cursor-pointer  max-sm:mt-20">
+                <button
+                  onClick={() => {
+                    fetch();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                  className="uppercase tracking-wider"
+                >
+                  Refresh
+                  <div className="star-1">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="star-2">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="star-3">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="star-4">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="star-5">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="star-6">
+                    <svg
+                      xmlnsXlink="http://www.w3.org/1999/xlink"
+                      viewBox="0 0 784.11 815.53"
+                      style={svgStyle}
+                      version="1.1"
+                      xmlSpace="preserve"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <defs></defs>
+                      <g id="Layer_x0020_1">
+                        <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                        <path
+                          d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
+                          className="fil0"
+                        ></path>
+                      </g>
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
           )}
         </div>
       </div>
@@ -211,140 +338,6 @@ function AllPost() {
               />
             </div>
           </div>
-        </div>
-      )}
-      <div className="flex justify-center items-center my-3 flex-col cursor-pointer max-sm:mb-20 max-sm:mt-20">
-        <button
-          onClick={() => {
-            fetch();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          className="uppercase tracking-wider"
-        >
-          Refresh
-          <div className="star-1">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-          <div className="star-2">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-          <div className="star-3">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-          <div className="star-4">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-          <div className="star-5">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-          <div className="star-6">
-            <svg
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              viewBox="0 0 784.11 815.53"
-              style={svgStyle}
-              version="1.1"
-              xmlSpace="preserve"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs></defs>
-              <g id="Layer_x0020_1">
-                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
-                <path
-                  d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"
-                  className="fil0"
-                ></path>
-              </g>
-            </svg>
-          </div>
-        </button>
-      </div>
-      {statuserror && (
-        <div className="absolute w-[20%] right-7 top-14 max-sm:fixed max-sm:w-96 max-sm:left-2">
-          <Alert severity="error" sx={{ width: "100%" }}>
-            <p className="capitalize font-semibold tracking-wider">
-              {statuserror}
-            </p>
-          </Alert>
         </div>
       )}
     </>

@@ -32,7 +32,7 @@ function App() {
         </BrowserRouter>
       </GoogleOAuthProvider>
 
-      <footer className="footer-bg-animation text-white py-4 bg-gradient-to-r from-blue-500 to-teal-500">
+      <footer className="footer-bg-animation text-white py-4 bg-gradient-to-r from-blue-500 to-teal-500 max-sm:mb-16 ">
         <Container maxWidth="lg">
           <div className="flex flex-col md:flex-row items-center justify-between ">
             <Typography
