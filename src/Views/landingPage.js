@@ -113,6 +113,7 @@ function LandingPage() {
       notifyError("Accept terms and conditions to proceed");
       return;
     }
+    window.scrollTo({ top: 0, behavior: "smooth" });
     const decode = jwtDecode(res.credential);
     setstate(!state);
     const { name, email, picture } = decode;
