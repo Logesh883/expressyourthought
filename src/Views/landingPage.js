@@ -156,7 +156,7 @@ function LandingPage() {
       .then((res) => {
         if (res.data) {
           setstate(false);
-          notifySuccess("Signin Successfull");
+          notifySuccess("Login Successfull");
           dispatch(authActions.login());
           navigation("/feedpost");
         }

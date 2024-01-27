@@ -189,7 +189,7 @@ function Navigation({ value }) {
                     >
                       <img
                         src={base64Image}
-                        className="w-12 rounded-full  h-20"
+                        className="w-12 rounded-full  h-12"
                       />
                     </IconButton>
                   </Tooltip>
