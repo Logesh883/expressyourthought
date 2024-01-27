@@ -131,17 +131,17 @@ function AllPost() {
                 className="w-[60rem] min-h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden shadow-inner shadow-blue-200 text-black"
                 key={i}
               >
-                <div className="flex items-center gap-x-2 w-[60rem] font-roboto">
-                  <div className="flex items-center flex-wrap justify-between gap-x-2 w-[60rem]">
+                <div className="flex items-center  gap-x-2  font-roboto flex-wrap">
+                  <div className="flex items-center flex-wrap    justify-between w-[58rem] ">
                     <div className="flex gap-x-3 items-center ">
                       <div className="w-10 h-10 rounded-full ">
                         <FeedUserProfile userdata={val.userProfile} />
                       </div>
                       <div>
-                        <p className=" h-7">{val.username}</p>
+                        <p className=" h-7">{val.username} </p>
                       </div>
                     </div>
-                    <div>
+                    <div className="">
                       <RWebShare
                         data={{
                           text: "Ideavista",
