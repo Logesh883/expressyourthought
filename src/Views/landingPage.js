@@ -112,6 +112,7 @@ function LandingPage() {
     };
   }, []);
   axios.defaults.withCredentials = true;
+  var messageCount = 1;
 
   const handleSuccess = async (res) => {
     if (!input.current.checked) {
@@ -156,8 +157,11 @@ function LandingPage() {
       .then((res) => {
         if (res.data) {
           setstate(false);
-          notifySuccess("Login Successfull");
-          dispatch(authActions.login());
+          if (messageCount === 1) {
+            notifySuccess("Login Successfull");
+            dispatch(authActions.login());
+            messageCount++;
+          }
           navigation("/feedpost");
         }
       })
