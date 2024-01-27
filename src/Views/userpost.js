@@ -7,7 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Alert } from "@mui/material";
 import "swiper/css/pagination";
 import "./userPostButton.css";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";

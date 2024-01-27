@@ -220,7 +220,7 @@ function AllPost() {
                     </Swiper>
                   </div>
                   <button
-                    onClick={() => handleShareClick(val.postId)}
+                    onClick={() => handleShareClick(val._id)}
                     className="text-blue-500 font-bold cursor-pointer hover:text-blue-700"
                   >
                     Share
