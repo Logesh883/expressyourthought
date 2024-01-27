@@ -38,6 +38,15 @@ function AllPost() {
     };
   }, []);
 
+  const handleShareClick = (postId) => {
+    const postLink = `https://ideavista.online/post/${postId}`;
+
+    navigator.clipboard
+      .writeText(postLink)
+      .then(() => toast.success("Link copied to clipboard"))
+      .catch(() => toast.error("Error copying link to clipboard"));
+  };
+
   useEffect(() => {
     if (isEndOfPage) {
       fetch();
@@ -210,6 +219,12 @@ function AllPost() {
                       ))}
                     </Swiper>
                   </div>
+                  <button
+                    onClick={() => handleShareClick(val.postId)}
+                    className="text-blue-500 font-bold cursor-pointer hover:text-blue-700"
+                  >
+                    Share
+                  </button>
                 </div>
               </div>
             ))
