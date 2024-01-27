@@ -132,7 +132,7 @@ function AllPost() {
                 key={i}
               >
                 <div className="flex items-center gap-x-2 w-[60rem] font-roboto">
-                  <div className="flex items-center flex-wrap justify-between gap-x-2 max-w-[60rem]">
+                  <div className="flex items-center flex-wrap justify-between gap-x-2 w-[60rem]">
                     <div className="flex gap-x-3 items-center ">
                       <div className="w-10 h-10 rounded-full ">
                         <FeedUserProfile userdata={val.userProfile} />
