@@ -16,6 +16,7 @@ import {
 
 import LandingPage from "./Views/landingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import SharedPost from "./Views/SharedPost";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
@@ -28,6 +29,8 @@ function App() {
             <Route path="/createPost" element={<CreatePost />} />
             <Route path="/getUserPost" element={<UserPost />} />
             <Route path="/feedPost" Component={allPost} />
+            <Route path="*" Component={LandingPage} />
+            <Route path="/post/:id" Component={SharedPost} />
           </Routes>
         </BrowserRouter>
       </GoogleOAuthProvider>
