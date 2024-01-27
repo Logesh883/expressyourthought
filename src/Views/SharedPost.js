@@ -11,7 +11,7 @@ function SharedPost() {
 
   async function getSharedPost() {
     await axios
-      .get(`https://server.ideavista.online/api/sharedpost/${id}`)
+      .get(`https://server.ideavista.online/api/sharepost/${id}`)
       .then((res) => console.log(res.data.data))
       .catch((err) => console.log(err));
   }
