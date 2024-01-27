@@ -97,6 +97,7 @@ function UserPost() {
       .delete(`https://server.ideavista.online/api/removePost/${val}`)
       .then((res) => {
         nottifySuccess(res.data.message);
+        setstatusdelete(!statusdelete);
       })
       .catch((err) => notifyError(err.message || "Not deleted"))
       .finally(() => {
@@ -110,7 +111,7 @@ function UserPost() {
   var st;
   return (
     <React.Fragment>
-      <div className="min-h-[38rem]">
+      <div className="min-h-[38rem] mb-8">
         <div className="max-sm:overflow-hidden">
           <Navigation1 value={"myPost"} />
         </div>
