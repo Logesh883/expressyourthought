@@ -6,6 +6,7 @@ import UserPost from "./Views/userpost";
 import "./footer.css";
 import allPost from "./Views/feedPost";
 import { Container, Typography, Link } from "@mui/material";
+import { useSelector } from "react-redux";
 import {
   Policy,
   Gavel,
@@ -20,21 +21,24 @@ import SharedPost from "./Views/SharedPost";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
+  const isLogin = useSelector((state) => state.login.Logstate);
+  console.log(isLogin);
   return (
     <>
-      <GoogleOAuthProvider clientId={client_id}>
-        <BrowserRouter basename="/">
-          <Routes>
-            <Route path="/" Component={LandingPage} />
-            <Route path="/createPost" element={<CreatePost />} />
-            <Route path="/getUserPost" element={<UserPost />} />
-            <Route path="/feedPost" Component={allPost} />
-            <Route path="*" Component={LandingPage} />
-            <Route path="/post/:id" Component={SharedPost} />
-          </Routes>
-        </BrowserRouter>
-      </GoogleOAuthProvider>
-
+      <div>
+        <GoogleOAuthProvider clientId={client_id}>
+          <BrowserRouter basename="/">
+            <Routes>
+              <Route path="/" Component={LandingPage} />
+              {isLogin && <Route path="/createPost" element={<CreatePost />} />}
+              {isLogin && <Route path="/getUserPost" element={<UserPost />} />}
+              {isLogin && <Route path="/feedPost" Component={allPost} />}
+              {!isLogin && <Route path="*" Component={LandingPage} />}
+              {!isLogin && <Route path="/post/:id" Component={SharedPost} />}
+            </Routes>
+          </BrowserRouter>
+        </GoogleOAuthProvider>
+      </div>
       <footer className="footer-bg-animation text-white py-4 bg-gradient-to-r from-blue-500 to-teal-500 max-sm:mb-16 ">
         <Container maxWidth="lg">
           <div className="flex flex-col md:flex-row items-center justify-between ">
@@ -43,7 +47,7 @@ function App() {
               component="p"
               className="font-bold mb-4 md:mb-0 text-orange-400"
             >
-              Ideavista
+              Ideavista <sup className="text-3xl">24</sup>
             </Typography>
             <div className="flex flex-wrap space-y-2  max-sm:space-x-9 md:space-y-0 md:space-x-4">
               <a
@@ -52,6 +56,7 @@ function App() {
                 className="hover:text-gray-300 max-sm:mt-1"
                 underline="none"
                 target="_blank"
+                rel="noreferrer"
               >
                 <GitHub sx={{ color: "cyan" }} className="" />{" "}
                 <span className="max-sm:hidden ">GitHub</span>
@@ -62,6 +67,7 @@ function App() {
                 className="hover:text-gray-300"
                 underline="none"
                 target="_blank"
+                rel="noreferrer"
               >
                 <MailOutline sx={{ color: "salmon" }} />{" "}
                 <span className="max-sm:hidden">Gmail</span>
@@ -72,6 +78,7 @@ function App() {
                 className="hover:text-gray-300"
                 underline="none"
                 target="_blank"
+                rel="noreferrer"
               >
                 <LinkedIn sx={{ color: "plum" }} />
                 <span className="max-sm:hidden">LinkedIn</span>
@@ -82,6 +89,7 @@ function App() {
                 className="hover:text-gray-300"
                 underline="none"
                 target="_blank"
+                rel="noreferrer"
                 title="Privacy Policy"
               >
                 <Policy /> <span className="max-sm:hidden">Privacy Policy</span>
@@ -93,6 +101,7 @@ function App() {
                 className="hover:text-gray-300"
                 underline="none"
                 target="_blank"
+                rel="noreferrer"
               >
                 <Gavel />{" "}
                 <span className="max-sm:hidden">Terms and Conditions</span>

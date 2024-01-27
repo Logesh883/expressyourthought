@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import "./button.css";
+
 import "./cookiecard.css";
 import {
   AnimatePresence,
@@ -16,7 +16,8 @@ import header from "../Images/business-startup.jpg";
 import { ArrowDownwardSharp, Share } from "@mui/icons-material";
 
 import { RWebShare } from "react-web-share";
-
+import { UseDispatch, useDispatch } from "react-redux";
+import { authActions } from "../Store/CreateSlice";
 function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
@@ -30,6 +31,7 @@ function LandingPage() {
   const animation1 = useAnimation();
   const animation2 = useAnimation();
   let rendervalue = 1;
+  const dispatch = useDispatch();
 
   const notifyError = (data) => toast.error(data);
   const notifyLoading = (data) => toast.success(data);
@@ -93,7 +95,10 @@ function LandingPage() {
       .get("https://server.ideavista.online/api/logout", null, {
         withCredentials: true,
       })
-      .then((res) => notifySuccess(res.data.msg))
+      .then((res) => {
+        notifySuccess(res.data.msg);
+        dispatch(authActions.logout());
+      })
       .catch((err) => notifyError(err.message))
       .finally(() => (window.location.pathname = "/"));
   };
@@ -127,7 +132,9 @@ function LandingPage() {
         },
         { withCredentials: true }
       )
-      .then(() => {})
+      .then(() => {
+        notifySuccess("Signin Successfull");
+      })
       .catch((err) => notifyError(err.message));
     await Login(email)
       .then(() => {
@@ -149,6 +156,8 @@ function LandingPage() {
       .then((res) => {
         if (res.data) {
           setstate(false);
+          notifySuccess("Signin Successfull");
+          dispatch(authActions.login());
           navigation("/feedpost");
         }
       })
@@ -174,7 +183,7 @@ function LandingPage() {
   };
 
   return (
-    <div className="  overflow-hidden box-content relative">
+    <div className="  overflow-hidden box-content relative ">
       <div className=" flex justify-between h-40 max-sm:justify-between lg:mx-20 items-center p-2 ">
         <svg
           viewBox="0 150 540 100"
@@ -222,9 +231,9 @@ function LandingPage() {
                               y="75.43924843421912"
                               fill="#cf7650"
                               opacity="1"
-                              stroke-width="0"
+                              strokeWidth="0"
                               stroke="transparent"
-                              fill-opacity="1"
+                              fillOpacity="1"
                               class="rect-r-0"
                               data-fill-palette-color="primary"
                               rx="1%"
@@ -336,10 +345,10 @@ function LandingPage() {
                         >
                           <g
                             stroke="none"
-                            stroke-opacity="1"
-                            stroke-dasharray="none"
+                            strokeOpacity="1"
+                            strokeDasharray="none"
                             fill="none"
-                            fill-opacity="1"
+                            fillOpacity="1"
                           >
                             <g fill="#ffa62e" data-fill-palette-color="accent">
                               <path
@@ -395,6 +404,7 @@ function LandingPage() {
                         <ArrowDownwardSharp />
                       </button>
                     </div>
+
                     <RWebShare
                       data={{
                         text: "Ideavista",
@@ -482,12 +492,12 @@ function LandingPage() {
           </div>
         )}
       </div>
-      <motion.div className="flex  justify-evenly font-roboto flex-wrap items-center max-sm:h-[12rem]">
+      <motion.div className="flex  justify-evenly font-roboto flex-wrap items-center max-sm:h-[12rem] ">
         <img src={header} alt="header" className="flex-1 w-full " />
       </motion.div>
       <AnimatePresence>
         <div
-          className="flex lg:gap-x-80 max-sm:gap-x-10 justify-center mt-6  flex-wrap"
+          className="flex lg:gap-x-80 max-sm:gap-x-10 justify-center mt-6  flex-wrap dark:text-red-400"
           ref={animate}
         >
           <div className="w-[20rem] text-justify ">
@@ -511,7 +521,7 @@ function LandingPage() {
           </div>
           <div className="w-[20rem] text-justify max-sm:mt-3 " ref={animate}>
             <motion.p
-              className="text-xl font-bold uppercase tracking-wider relative w-fit home "
+              className="text-xl font-bold uppercase tracking-wider relative w-fit home  "
               animate={animation1}
               initial={width >= 650 ? { opacity: 0 } : ""}
             >
@@ -533,7 +543,7 @@ function LandingPage() {
           ref={animate}
         >
           <motion.p
-            className="text-lg text-justify font-semibold hover:underline w-fit"
+            className="text-lg text-justify font-semibold hover:underline w-fit dark:text-red-400"
             animate={animation2}
             initial={width >= 650 ? { opacity: 0 } : ""}
           >
@@ -565,7 +575,7 @@ function LandingPage() {
         </div>
       </AnimatePresence>
       <div className="flex flex-col justify-between max-sm:justify-around mx-auto gap-y-3 mb-6 ">
-        <div className="mx-auto ">
+        <div className="mx-auto bg-transparent">
           <GoogleLogin
             onSuccess={(res) => handleSuccess(res)}
             onError={(err) => console.log(err)}

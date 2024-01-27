@@ -2,13 +2,24 @@ import React from "react";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import PortraitIcon from "@mui/icons-material/Portrait";
 
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+
 import {
   AddCircle,
+  DeleteForever,
   HomeOutlined,
   LogoutTwoTone,
   PortraitOutlined,
@@ -114,6 +125,15 @@ function Navigation({ value }) {
     };
   }, []);
 
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <>
       {width >= 650 ? (
@@ -129,6 +149,7 @@ function Navigation({ value }) {
           <div>
             <Toaster />
           </div>
+
           <div className="flex gap-x-20 mx-10 items-center text-stone-700 relative ">
             <p
               className={`cursor-pointer font-bold font-serif relative  uppercase home ${
@@ -155,55 +176,89 @@ function Navigation({ value }) {
               ADD POSTS
             </p>
 
-            <div className="flex gap-x-2 group cursor-pointer items-center">
-              <div className="w-12 h-12 rounded-full cursor-pointer">
-                {base64Image ? (
-                  <div className="">
-                    <img
-                      src={base64Image}
-                      alt="Profile"
-                      className="rounded-full w-12 h-12  "
-                    />
-                  </div>
-                ) : (
-                  <div className="">
-                    <div className="w-12 h-12 rounded-full animate-pulse bg-neutral-400 "></div>
-                  </div>
-                )}
+            <div className="flex gap-x-2   cursor-pointer">
+              {base64Image ? (
+                <div className=" flex justify-center items-center">
+                  <Tooltip title="Account settings">
+                    <IconButton
+                      onClick={handleClick}
+                      size="small"
+                      aria-controls={open ? "account-menu" : undefined}
+                      aria-haspopup="true"
+                      aria-expanded={open ? "true" : undefined}
+                    >
+                      <img
+                        src={base64Image}
+                        className="w-12 rounded-full  h-20"
+                      />
+                    </IconButton>
+                  </Tooltip>
 
-                <div className=" w-36  font-serif mt-2 rounded-lg cursor-pointer absolute right-0 top-[80%] bg-slate-100  hidden group-hover:block z-50 uppercase tracking-wider">
-                  <div
-                    className="border-b-2 border-red-500 p-2 rounded-3xl hover:border-green-500"
-                    onClick={() => setupload(!upload)}
-                    title="change your profile "
-                  >
-                    {" "}
-                    <p className="">Edit Picture</p>
-                  </div>
-                  <div
-                    className="border-b-2 p-2 border-red-500  rounded-3xl hover:border-green-500 cursor-not-allowed hover:opacity-40"
-                    title="Available in V2"
-                  >
-                    {" "}
-                    <p>Profile</p>
-                  </div>
-                  <div
-                    className="border-b-2 p-2  border-red-500 rounded-3xl hover:border-green-500 cursor-pointer "
-                    onClick={() => {
-                      Logout();
+                  <Menu
+                    anchorEl={anchorEl}
+                    id="account-menu"
+                    open={open}
+                    onClose={handleClose}
+                    onClick={handleClose}
+                    PaperProps={{
+                      elevation: 0,
+                      sx: {
+                        overflow: "visible",
+                        filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                        mt: 1.5,
+                        "& .MuiAvatar-root": {
+                          width: 32,
+                          height: 32,
+                          ml: -0.5,
+                          mr: 1,
+                        },
+                        "&::before": {
+                          content: '""',
+                          display: "block",
+                          position: "absolute",
+                          top: 0,
+                          right: 14,
+                          width: 10,
+                          height: 10,
+                          bgcolor: "background.paper",
+                          transform: "translateY(-50%) rotate(45deg)",
+                          zIndex: 0,
+                        },
+                      },
                     }}
+                    transformOrigin={{ horizontal: "right", vertical: "top" }}
+                    anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
                   >
-                    {" "}
-                    <p>Logout</p>
-                  </div>
+                    <MenuItem onClick={() => setupload(!upload)}>
+                      <Avatar /> Profile
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                      <Avatar /> My account
+                    </MenuItem>
+                    <Divider />
+
+                    <MenuItem onClick={handleClose}>
+                      <ListItemIcon>
+                        <DeleteForever fontSize="small" />
+                      </ListItemIcon>
+                      Delete account
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        Logout();
+                      }}
+                    >
+                      <ListItemIcon>
+                        <LogoutTwoTone fontSize="small" />
+                      </ListItemIcon>
+                      Logout
+                    </MenuItem>
+                  </Menu>
                 </div>
-              </div>
-              {username ? (
-                <p className=" capitalize w-fit  font-bold gap-x-2 flex items-center h-12 text-center rounded-xl -left-30 ">
-                  {username}
-                </p>
               ) : (
-                <div className=" capitalize w-28 justify-center  font-bold gap-x-2 flex items-center h-6 text-center rounded-xl -left-30 bg-neutral-400 animate-pulse"></div>
+                <div className="">
+                  <div className="w-10 h-10 rounded-full animate-pulse bg-neutral-400 "></div>
+                </div>
               )}
             </div>
           </div>

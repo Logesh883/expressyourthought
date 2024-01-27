@@ -102,7 +102,7 @@ function CreatePost() {
         ) : (
           ""
         )}
-        <div className="flex items-center lg:w-screen  max-sm:flex-col flex-wrap justify-between mx-20">
+        <div className="flex  items-center lg:w-screen  max-sm:flex-col flex-wrap justify-between mx-20">
           {width >= 650 ? (
             <div
               className="ml-30 w-[30rem] 

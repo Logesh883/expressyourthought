@@ -48,9 +48,9 @@ function Design() {
                             y="75.43924843421912"
                             fill="#cf7650"
                             opacity="1"
-                            stroke-width="0"
+                            strokeWidth="0"
                             stroke="transparent"
-                            fill-opacity="1"
+                            fillOpacity="1"
                             class="rect-r-0"
                             data-fill-palette-color="primary"
                             rx="1%"
@@ -162,10 +162,10 @@ function Design() {
                       >
                         <g
                           stroke="none"
-                          stroke-opacity="1"
-                          stroke-dasharray="none"
+                          strokeOpacity="1"
+                          strokeDasharray="none"
                           fill="none"
-                          fill-opacity="1"
+                          fillOpacity="1"
                         >
                           <g fill="#ffa62e" data-fill-palette-color="accent">
                             <path
