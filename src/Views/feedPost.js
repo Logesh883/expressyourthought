@@ -7,6 +7,8 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FeedUserProfile from "./FeedUserProfile";
 import "./userPostButton.css";
 import toast from "react-hot-toast";
+import { RWebShare } from "react-web-share";
+import { Share } from "@mui/icons-material";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -38,21 +40,6 @@ function AllPost() {
     };
   }, []);
 
-  const handleShareClick = (postId) => {
-    const postLink = `https://ideavista.online/post/${postId}`;
-
-    navigator.clipboard
-      .writeText(postLink)
-      .then(() => toast.success("Link copied to clipboard"))
-      .catch(() => toast.error("Error copying link to clipboard"));
-  };
-
-  useEffect(() => {
-    if (isEndOfPage) {
-      fetch();
-    }
-  }, [isEndOfPage]);
-
   const svgStyle = {
     shapeRendering: "geometricPrecision",
     textRendering: "geometricPrecision",
@@ -61,6 +48,7 @@ function AllPost() {
     clipRule: "evenodd",
   };
   const notifyError = (data) => toast.error(data);
+  const notifyLoading = (data) => toast.success(data);
   axios.defaults.withCredentials = true;
   const fetch = async () => {
     try {
@@ -79,7 +67,7 @@ function AllPost() {
   };
   useEffect(() => {
     fetch();
-  }, []);
+  }, [isEndOfPage]);
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -144,12 +132,29 @@ function AllPost() {
                 key={i}
               >
                 <div className="flex items-center gap-x-2 w-[60rem] font-roboto">
-                  <div className="flex items-center gap-x-2 w-[60rem]">
-                    <div className="w-10 h-10 rounded-full ">
-                      <FeedUserProfile userdata={val.userProfile} />
+                  <div className="flex items-center justify-between gap-x-2 w-[60rem]">
+                    <div>
+                      <div className="w-10 h-10 rounded-full ">
+                        <FeedUserProfile userdata={val.userProfile} />
+                      </div>
+                      <div>
+                        <p className=" h-7">{val.username}</p>
+                      </div>
                     </div>
                     <div>
-                      <p className=" h-7">{val.username}</p>
+                      <RWebShare
+                        data={{
+                          text: "Ideavista",
+                          title: "Ideavista share",
+                          url: `https://www.ideavista.online/post/${val._id}`,
+                        }}
+                        onClick={() => notifyLoading("Linked Generated")}
+                      >
+                        <p className="cursor-pointer text-blue-600">
+                          {" "}
+                          <Share sx={{ fontSize: "30px" }} />
+                        </p>
+                      </RWebShare>
                     </div>
                   </div>
                 </div>
@@ -219,12 +224,6 @@ function AllPost() {
                       ))}
                     </Swiper>
                   </div>
-                  <button
-                    onClick={() => handleShareClick(val._id)}
-                    className="text-blue-500 font-bold cursor-pointer hover:text-blue-700"
-                  >
-                    Share
-                  </button>
                 </div>
               </div>
             ))
