@@ -9,6 +9,7 @@ import "./userPostButton.css";
 import toast from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import { Share } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -39,6 +40,7 @@ function AllPost() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const navigation = useNavigate();
 
   const svgStyle = {
     shapeRendering: "geometricPrecision",
@@ -67,12 +69,16 @@ function AllPost() {
   };
   useEffect(() => {
     if (isEndOfPage) {
-      fetch();
-      window.scrollTo({ top: -20, behavior: "smooth" });
+      navigation("/feedpost");
     } else {
       return;
     }
   }, [isEndOfPage]);
+
+  useEffect(() => {
+    fetch();
+  }, []);
+
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
