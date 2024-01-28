@@ -61,9 +61,10 @@ function AllPost() {
         .then((res) => {
           const newIds = new Set(res.data.fetched.map((item) => item.id));
 
-          const newData = res.data.fetched.filter(
-            (item) => !newIds.has(item.id)
-          );
+          const newData =
+            data.length === 0
+              ? response.data.fetched
+              : response.data.fetched.filter((item) => !newIds.has(item.id));
           setdata((prevData) => [...prevData, ...newData]);
         });
     } catch (err) {
