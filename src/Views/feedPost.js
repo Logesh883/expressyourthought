@@ -69,7 +69,9 @@ function AllPost() {
   };
   useEffect(() => {
     if (isEndOfPage) {
-      navigation("/feedpost");
+      fetch();
+      const nav = document.getElementById("navigation");
+      nav.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     } else {
       return;
     }
@@ -105,7 +107,7 @@ function AllPost() {
     <>
       <div className="min-h-[38rem]">
         {" "}
-        <div className="">
+        <div className="" id="navigation">
           <Navigation1 value={"allPost"} />
         </div>
         <div className="flex gap-x-20 flex-wrap justify-center overflow-hidden lg:mt-10 max-sm:mx-2">
