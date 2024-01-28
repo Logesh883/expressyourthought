@@ -63,8 +63,8 @@ function AllPost() {
 
           const newData =
             data.length === 0
-              ? response.data.fetched
-              : response.data.fetched.filter((item) => !newIds.has(item.id));
+              ? res.data.fetched
+              : res.data.fetched.filter((item) => !newIds.has(item.id));
           setdata((prevData) => [...prevData, ...newData]);
         });
     } catch (err) {
