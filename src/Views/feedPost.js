@@ -9,7 +9,6 @@ import "./userPostButton.css";
 import toast from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import { Share } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -40,7 +39,6 @@ function AllPost() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
-  const navigation = useNavigate();
 
   const svgStyle = {
     shapeRendering: "geometricPrecision",
@@ -67,9 +65,17 @@ function AllPost() {
       setloading(false);
     }
   };
+  const [pageload, setpageload] = useState(false);
   useEffect(() => {
     if (isEndOfPage) {
-      fetch();
+      try {
+        pageload(true);
+        fetch();
+      } catch (err) {
+        notifyError("Error in Fetching more data");
+      } finally {
+        pageload(false);
+      }
     } else {
       return;
     }
@@ -372,6 +378,13 @@ function AllPost() {
           )}
         </div>
       </div>
+      {pageload && (
+        <div class="flex flex-row gap-2">
+          <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+          <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+          <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+        </div>
+      )}
       {doubleClick && clickedImage && (
         <div className="fixed  top-0 z-50 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
           <div className="">
