@@ -59,13 +59,7 @@ function AllPost() {
           withCredentials: true,
         })
         .then((res) => {
-          const newIds = new Set(res.data.fetched.map((item) => item.id));
-
-          const newData =
-            data.length === 0
-              ? res.data.fetched
-              : res.data.fetched.filter((item) => !newIds.has(item.id));
-          setdata((prevData) => [...prevData, ...newData]);
+          setdata((prevData) => [...prevData, ...res.data.fetched]);
         });
     } catch (err) {
       notifyError("Error in fetching data");
@@ -76,8 +70,6 @@ function AllPost() {
   useEffect(() => {
     if (isEndOfPage) {
       fetch();
-      const nav = document.getElementById("navigation");
-      nav.scrollIntoView({ top: 0, behavior: "smooth" });
     } else {
       return;
     }
