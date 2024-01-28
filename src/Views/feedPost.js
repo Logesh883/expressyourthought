@@ -73,6 +73,7 @@ function AllPost() {
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     window.addEventListener("resize", handleResize);
