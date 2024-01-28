@@ -59,7 +59,12 @@ function AllPost() {
           withCredentials: true,
         })
         .then((res) => {
-          setdata((data) => [...data, ...res.data.fetched]);
+          const newIds = new Set(res.data.fetched.map((item) => item.id));
+
+          const newData = res.data.fetched.filter(
+            (item) => !newIds.has(item.id)
+          );
+          setdata((prevData) => [...prevData, ...newData]);
         });
     } catch (err) {
       notifyError("Error in fetching data");
