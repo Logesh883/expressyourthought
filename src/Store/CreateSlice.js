@@ -4,6 +4,7 @@ const LoginSlice = createSlice({
   name: "login",
   initialState: {
     Logstate: false,
+    value: 1,
   },
   reducers: {
     login(state) {

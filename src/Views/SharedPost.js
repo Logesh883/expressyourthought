@@ -23,6 +23,7 @@ function SharedPost() {
   const [doubleClick, setDoubleClick] = useState(false);
   const [clickedImage, setClickedImage] = useState(null);
   const notifyError = (data) => toast.error(data);
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     getSharedPost();
@@ -36,6 +37,7 @@ function SharedPost() {
   };
 
   async function getSharedPost() {
+    setloading(true);
     await axios
       .get(`https://server.ideavista.online/api/sharepost/${id}`)
       .then((res) => {
@@ -44,9 +46,9 @@ function SharedPost() {
           st = true;
         }
         setdata(res.data.data);
-        notifyError("doone");
       })
-      .catch((err) => notifyError(err.message));
+      .catch((err) => notifyError(err.message))
+      .finally(() => setloading(false));
   }
   return (
     <>
@@ -80,8 +82,26 @@ function SharedPost() {
             </Link>
           </div>
         </div>
+
         <div className="flex  justify-center items-center flex-wrap mx-3">
-          {data ? (
+          {loading ? (
+            <div className="w-[60rem] h-[30rem] border-2 rounded-lg p-3 border-slate-300 animate-pulse my-2 overflow-hidden">
+              <div>
+                <div className="flex items-center gap-x-3">
+                  <div className="flex items-center gap-x-2 w-[60rem]">
+                    <div className="w-10 h-10 rounded-full bg-slate-300"></div>
+                    <div>
+                      <p className="w-40 h-7 bg-slate-300 rounded-2xl"></p>
+                    </div>
+                  </div>
+                  <div className="mr-2 w-10 h-10 rounded-full bg-slate-300"></div>
+                </div>
+              </div>
+              <div className="mt-2 rounded-xl w-[58rem] h-[25rem] bg-slate-300">
+                <div></div>
+              </div>
+            </div>
+          ) : data ? (
             <div className="w-[60rem] min-h-[30rem] border-2 rounded-lg p-3 border-blue-300 my-2 overflow-hidden shadow-inner shadow-blue-200 text-black flex-wrap">
               <div>
                 <Toaster />
@@ -112,12 +132,6 @@ function SharedPost() {
                   }`}
                 >
                   {data.description}
-                  {/* {(() => {
-                  st = false;
-                  if (data.description.length > 210) {
-                    st = true;
-                  }
-                })()} */}
                 </div>
                 {deleteLoad ? (
                   <p
@@ -179,6 +193,7 @@ function SharedPost() {
               </p>
             </div>
           )}
+
           <div className="max-sm:block hidden my-3">
             <Link to="/">
               <button class="btn " type="button">
@@ -198,44 +213,42 @@ function SharedPost() {
               </button>
             </Link>
           </div>
-
-          {doubleClick && clickedImage && (
-            <div className="fixed  top-0 z-50 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
-              <div className="">
-                <div className=" w-full h-full">
-                  <span
-                    className="absolute right-5  text-white top-5 cursor-pointer"
-                    onClick={handleCloseModal}
-                  >
-                    <CloseOutlined />
-                  </span>
-                </div>
-                <div>
-                  <img
-                    src={clickedImage}
-                    alt="full-screen"
-                    className="w-[90%] h-[70%]"
-                  />
-                </div>
+        </div>
+        {doubleClick && clickedImage && (
+          <div className="fixed  top-0 z-50 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80">
+            <div className="">
+              <div className=" w-full h-full">
+                <span
+                  className="absolute right-5  text-white top-5 cursor-pointer"
+                  onClick={handleCloseModal}
+                >
+                  <CloseOutlined />
+                </span>
+              </div>
+              <div>
+                <img
+                  src={clickedImage}
+                  alt="full-screen"
+                  className="w-[90%] h-[70%]"
+                />
               </div>
             </div>
-          )}
-          {data && (
-            <div>
-              <p className="text-wrap">
-                <span>Disclaimer:</span> This content is provided for
-                informational purposes only. The views and opinions expressed in
-                this content are those of the author and do not necessarily
-                reflect the official policy or position of Ideavista. Any action
-                you take upon the information provided in this content is
-                strictly at your own risk, and Ideavista will not be liable for
-                any losses or damages in connection with the use of this
-                content. Please seek professional advice before making any
-                decisions.
-              </p>
-            </div>
-          )}
-        </div>
+          </div>
+        )}
+        {data && (
+          <div>
+            <p className="text-wrap">
+              <span>Disclaimer:</span> This content is provided for
+              informational purposes only. The views and opinions expressed in
+              this content are those of the author and do not necessarily
+              reflect the official policy or position of Ideavista. Any action
+              you take upon the information provided in this content is strictly
+              at your own risk, and Ideavista will not be liable for any losses
+              or damages in connection with the use of this content. Please seek
+              professional advice before making any decisions.
+            </p>
+          </div>
+        )}
       </div>
     </>
   );

@@ -6,9 +6,11 @@ import axios from "axios";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import FeedUserProfile from "./FeedUserProfile";
 import "./userPostButton.css";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import { Share } from "@mui/icons-material";
+import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
+import { blue } from "@mui/material/colors";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -60,11 +62,12 @@ function AllPost() {
           setdata((prevData) => [...prevData, ...res.data.fetched]);
         });
     } catch (err) {
-      notifyError("Error in fetching data");
+      notifyError(err.message || "Error in fetching data");
     } finally {
       setloading(false);
     }
   };
+
   const [pageload, setpageload] = useState(false);
   useEffect(() => {
     if (isEndOfPage) {
@@ -109,10 +112,20 @@ function AllPost() {
 
   return (
     <>
-      <div className="min-h-[38rem]">
+      <div className="min-h-[38rem] ">
         {" "}
         <div className="" id="navigation">
+          <Toaster />
           <Navigation1 value={"allPost"} />
+        </div>
+        <div
+          className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <KeyboardArrowUpOutlinedIcon
+            fontSize="large"
+            sx={{ color: "blue " }}
+          />
         </div>
         <div className="flex gap-x-20 flex-wrap justify-center overflow-hidden lg:mt-10 max-sm:mx-2">
           {width >= 650 ? (
@@ -378,6 +391,7 @@ function AllPost() {
           )}
         </div>
       </div>
+
       {pageload && (
         <div class="flex flex-row gap-2">
           <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>

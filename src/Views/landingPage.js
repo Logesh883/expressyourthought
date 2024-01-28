@@ -16,7 +16,7 @@ import header from "../Images/business-startup.jpg";
 import { ArrowDownwardSharp, Share } from "@mui/icons-material";
 
 import { RWebShare } from "react-web-share";
-import { UseDispatch, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../Store/CreateSlice";
 function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
@@ -132,7 +132,16 @@ function LandingPage() {
         },
         { withCredentials: true }
       )
-      .then(() => {
+      .then(async () => {
+        await axios
+          .get("https://server.ideavista.online/api/changepassword", {
+            params: {
+              email,
+              isSign: true,
+            },
+          })
+          .then(() => console.log("success"))
+          .catch((err) => console.log(err));
         notifySuccess("Signin Successfull");
       })
       .catch((err) => notifyError(err.message));

@@ -153,11 +153,13 @@ function UserPost() {
                 key={i}
               >
                 {postLoading[val._id] ? (
-                  <div className="flex items-center flex-wrap   justify-center object-contain w-[60rem] h-[30rem]  flex-col bg-teal-100">
-                    <div class="flex flex-row gap-2">
-                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
-                      <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                  <div className="flex justify-center items-center">
+                    <div className="flex items-center flex-wrap   justify-center object-contain w-[60rem] h-[30rem]  flex-col bg-teal-100">
+                      <div class="flex flex-row gap-2">
+                        <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                        <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                        <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                      </div>
                     </div>
                   </div>
                 ) : (

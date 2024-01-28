@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useRef, useState, useEffect } from "react";
 import "./userPostButton.css";
-import { useLocation, useNavigate } from "react-router-dom";
 import Navigation from "./navigation";
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";

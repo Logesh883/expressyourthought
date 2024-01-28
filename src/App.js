@@ -18,11 +18,12 @@ import {
 import LandingPage from "./Views/landingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SharedPost from "./Views/SharedPost";
+import EditProfile from "./Views/EditProfile";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
   const isLogin = useSelector((state) => state.login.Logstate);
-  console.log(isLogin);
+
   return (
     <>
       <div>
@@ -30,11 +31,12 @@ function App() {
           <BrowserRouter basename="/">
             <Routes>
               <Route path="/" Component={LandingPage} />
-              {isLogin && <Route path="/createPost" element={<CreatePost />} />}
-              {isLogin && <Route path="/getUserPost" element={<UserPost />} />}
-              {isLogin && <Route path="/feedPost" Component={allPost} />}
-              {!isLogin && <Route path="*" Component={LandingPage} />}
-              {!isLogin && <Route path="/post/:id" Component={SharedPost} />}
+              <Route path="/createPost" element={<CreatePost />} />
+              <Route path="/getUserPost" element={<UserPost />} />
+              <Route path="/editprofile" element={<EditProfile />} />
+              <Route path="/feedPost" Component={allPost} />
+              <Route path="*" Component={LandingPage} />
+              <Route path="/post/:id" Component={SharedPost} />
             </Routes>
           </BrowserRouter>
         </GoogleOAuthProvider>
