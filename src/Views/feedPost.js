@@ -67,13 +67,13 @@ function AllPost() {
   };
   useEffect(() => {
     fetch();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [isEndOfPage]);
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
-      window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     window.addEventListener("resize", handleResize);
