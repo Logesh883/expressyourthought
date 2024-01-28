@@ -67,7 +67,7 @@ function AllPost() {
   };
   useEffect(() => {
     fetch();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo(0, { behavior: "smooth" });
   }, [isEndOfPage]);
   const [width, setWidth] = useState(window.innerWidth);
 
