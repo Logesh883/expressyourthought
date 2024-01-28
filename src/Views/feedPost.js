@@ -69,12 +69,12 @@ function AllPost() {
   useEffect(() => {
     if (isEndOfPage) {
       try {
-        pageload(true);
+        setpageload(true);
         fetch();
       } catch (err) {
         notifyError("Error in Fetching more data");
       } finally {
-        pageload(false);
+        setpageload(false);
       }
     } else {
       return;
