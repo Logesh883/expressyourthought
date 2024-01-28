@@ -59,7 +59,7 @@ function AllPost() {
           withCredentials: true,
         })
         .then((res) => {
-          setdata((data) => [...data], res.data.fetched);
+          setdata((data) => [...data, ...res.data.fetched]);
         });
     } catch (err) {
       notifyError("Error in fetching data");
