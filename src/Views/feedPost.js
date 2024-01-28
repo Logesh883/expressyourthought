@@ -68,7 +68,7 @@ function AllPost() {
   useEffect(() => {
     if (isEndOfPage) {
       fetch();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: -20, behavior: "smooth" });
     } else {
       return;
     }
