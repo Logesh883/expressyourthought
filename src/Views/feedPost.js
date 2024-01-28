@@ -118,15 +118,17 @@ function AllPost() {
           <Toaster />
           <Navigation1 value={"allPost"} />
         </div>
-        <div
-          className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 cursor-pointer"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        >
-          <KeyboardArrowUpOutlinedIcon
-            fontSize="large"
-            sx={{ color: "blue " }}
-          />
-        </div>
+        {data.length >= 1 && (
+          <div
+            className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <KeyboardArrowUpOutlinedIcon
+              fontSize="large"
+              sx={{ color: "blue " }}
+            />
+          </div>
+        )}
         <div className="flex gap-x-20 flex-wrap justify-center overflow-hidden lg:mt-10 max-sm:mx-2">
           {width >= 650 ? (
             ""
