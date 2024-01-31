@@ -1,11 +1,26 @@
 .card {
   box-shadow: rgba(0, 0, 0, 0.24) -20px 30px 10px;
   transform-style: preserve-3d;
-  transform: perspective(500px) rotateX(50deg) rotateZ(-30deg);
   border-radius: 10px;
-  transition: transform 2s;
+  transition: transform 10s;
 }
 
 .card:hover {
   transform: rotateY(19deg);
+}
+.card:not(:hover) {
+  animation: animate 10s ease-in-out infinite;
+}
+
+@keyframes animate {
+  0%,
+  100% {
+    transform: perspective(500px) rotateX(20deg) rotateZ(-10deg);
+  }
+  50% {
+    transform: perspective(500px) rotateX(30deg) rotateY(19deg) rotateZ(-40deg);
+  }
+  75% {
+    transform: perspective(500px) rotateX(60deg) rotateZ("0deg");
+  }
 }

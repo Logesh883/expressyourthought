@@ -10,7 +10,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import { Share } from "@mui/icons-material";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
-import { blue } from "@mui/material/colors";
+import PageChange from "@mui/material/Pagination";
+import { Stack } from "@mui/material";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -120,7 +121,7 @@ function AllPost() {
         </div>
         {data.length >= 1 && (
           <div
-            className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 cursor-pointer"
+            className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 max-sm:bottom-16 z-50 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <KeyboardArrowUpOutlinedIcon
@@ -133,7 +134,12 @@ function AllPost() {
           {width >= 650 ? (
             ""
           ) : (
-            <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
+            <p className="text-3xl font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text mt-2">
+              Ideavista{" "}
+              <sup className="font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text">
+                24
+              </sup>
+            </p>
           )}
           {loading ? (
             [...Array(5)].map((_, i) => (
@@ -246,10 +252,11 @@ function AllPost() {
                             <img
                               src={image.url}
                               alt="prp"
-                              className={`w-[60rem] h-[20rem]  object-contain cursor-pointer`}
+                              className={`w-[60rem] h-[25rem]  object-contain cursor-pointer`}
                               onDoubleClick={() =>
                                 handleImageDoubleClick(image.url)
                               }
+                              title="Double click to view"
                             />
                           </div>
                         </SwiperSlide>
@@ -393,6 +400,13 @@ function AllPost() {
           )}
         </div>
       </div>
+      {/* {data.length >= 1 && (
+        <div className="my-3 flex justify-center flex-wrap">
+          <Stack spacing={5}>
+            <PageChange count={10} variant="text" color="primary" />
+          </Stack>
+        </div>
+      )} */}
 
       {pageload && (
         <div class="flex flex-row gap-2">

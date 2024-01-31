@@ -122,7 +122,12 @@ function UserPost() {
           {width >= 650 ? (
             ""
           ) : (
-            <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
+            <p className="text-3xl font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text mt-2">
+              Ideavista{" "}
+              <sup className="font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text">
+                24
+              </sup>
+            </p>
           )}
           {loading ? (
             [...Array(5)].map((_, i) => (
@@ -256,8 +261,8 @@ function UserPost() {
             ))
           ) : (
             <div className="flex flex-wrap items-center flex-col  ">
-              <div className="font-serif text-4xl font-semibold text-blue-600 capitalize tracking-wider max-sm:mt-20">
-                Not Yet Posted
+              <div className="font-serif text-4xl font-semibold text-blue-600 capitalize tracking-wider max-sm:mt-20 max-sm:text-center">
+                No Ideas from you
               </div>
               <div className="flex max-sm:flex-col max-sm:items-center mt-20 ">
                 <button onClick={() => navigator("/createPost")}>

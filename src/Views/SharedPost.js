@@ -41,7 +41,6 @@ function SharedPost() {
     await axios
       .get(`https://server.ideavista.online/api/sharepost/${id}`)
       .then((res) => {
-        console.log(res.data.data);
         if (res.data.data.description.length > 210) {
           st = true;
         }
@@ -52,7 +51,7 @@ function SharedPost() {
   }
   return (
     <>
-      <div className="min-h-[34rem]">
+      <div className="min-h-[38rem]">
         <div className="flex justify-between mx-10 my-3 items-center flex-wrap ">
           <div className="flex flex-wrap font-laila bg-gradient-to-tl from-blue-600 to-pink-500 bg-clip-text text-transparent max-sm:mx-auto">
             <p className="font-bold text-4xl">
@@ -196,7 +195,7 @@ function SharedPost() {
 
           <div className="max-sm:block hidden my-3">
             <Link to="/">
-              <button class="btn " type="button">
+              <button class="btn" type="button">
                 <strong className="font-roboto text-lg fond-bold">
                   Start Yours
                 </strong>{" "}

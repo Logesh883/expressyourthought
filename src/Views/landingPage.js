@@ -16,12 +16,13 @@ import header from "../Images/business-startup.jpg";
 import { ArrowDownwardSharp, Share } from "@mui/icons-material";
 
 import { RWebShare } from "react-web-share";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { authActions } from "../Store/CreateSlice";
+import { Backdrop, CircularProgress } from "@mui/material";
 function LandingPage() {
   const [navLoad, setnavLoad] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const [state, setstate] = useState(true);
+  const [state, setstate] = useState(false);
   const [Cookiestate, setCookieState] = useState(false);
   const navigation = useNavigate();
   const input = useRef();
@@ -89,19 +90,6 @@ function LandingPage() {
     }
   }, [inView, animation]);
 
-  const Logout = async () => {
-    googleLogout();
-    await axios
-      .get("https://server.ideavista.online/api/logout", null, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        notifySuccess(res.data.msg);
-        dispatch(authActions.logout());
-      })
-      .catch((err) => notifyError(err.message))
-      .finally(() => (window.location.pathname = "/"));
-  };
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
@@ -118,9 +106,8 @@ function LandingPage() {
       notifyError("Accept terms and conditions to proceed");
       return;
     }
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setstate(true);
     const decode = jwtDecode(res.credential);
-    setstate(!state);
     const { name, email, picture } = decode;
     await axios
       .post(
@@ -140,11 +127,11 @@ function LandingPage() {
               isSign: true,
             },
           })
-          .then(() => console.log("success"))
-          .catch((err) => console.log(err));
-        notifySuccess("Signin Successfull");
+          .then(() => {})
+          .catch((err) => notifyError(err.message));
       })
-      .catch((err) => notifyError(err.message));
+      .catch((err) => notifyError(err.message))
+      .finally(() => setstate(false));
     await Login(email)
       .then(() => {
         CheckLogin();
@@ -164,10 +151,6 @@ function LandingPage() {
       })
       .then((res) => {
         if (res.data) {
-          setstate(false);
-
-          dispatch(authActions.login());
-
           navigation("/feedpost");
         }
       })
@@ -390,115 +373,77 @@ function LandingPage() {
         </div>
         {width >= 650 ? (
           <div>
-            {state ? (
-              <div>
-                {navLoad ? (
-                  <div class="flex flex-row gap-2">
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
-                  </div>
-                ) : (
-                  <div className="flex gap-x-3 items-center">
-                    <div
-                      className="mx-auto  "
-                      onClick={() => {
-                        window.scrollTo({
-                          top: 1000,
-                          behavior: "smooth",
-                        });
-                      }}
-                    >
-                      <button className="font-roboto bg-green-500">
-                        Let's Begin
-                        <ArrowDownwardSharp />
-                      </button>
-                    </div>
-
-                    <RWebShare
-                      data={{
-                        text: "Ideavista",
-                        title: "Ideavista share",
-                        url: "https://www.ideavista.online",
-                      }}
-                      onClick={() => notifyLoading("Shared")}
-                    >
-                      <p className="cursor-pointer text-blue-600">
-                        {" "}
-                        <Share sx={{ fontSize: "30px" }} />
-                      </p>
-                    </RWebShare>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex gap-2 ">
-                {navLoad ? (
-                  <div class="flex flex-row gap-2">
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
-                  </div>
-                ) : (
-                  <div className="flex gap-2 ">
-                    <button onClick={() => navigation("/feedpost")}>
-                      Start Journey
+            <div>
+              {navLoad ? (
+                <div class="flex flex-row gap-2">
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                </div>
+              ) : (
+                <div className="flex gap-x-3 items-center">
+                  <div
+                    className="mx-auto  "
+                    onClick={() => {
+                      window.scrollTo({
+                        top: 1000,
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    <button className="font-roboto bg-green-500">
+                      Let's Begin
+                      <ArrowDownwardSharp />
                     </button>
-                    <button onClick={() => Logout()}>Logout</button>
                   </div>
-                )}
-              </div>
-            )}
+
+                  <RWebShare
+                    data={{
+                      text: "Ideavista",
+                      title: "Ideavista share",
+                      url: "https://www.ideavista.online",
+                    }}
+                    onClick={() => notifyLoading("Shared")}
+                  >
+                    <p className="cursor-pointer text-blue-600">
+                      {" "}
+                      <Share sx={{ fontSize: "30px" }} />
+                    </p>
+                  </RWebShare>
+                </div>
+              )}
+            </div>
           </div>
         ) : (
           <div>
-            {state ? (
-              <div>
-                {navLoad ? (
-                  <div class="flex flex-row gap-2">
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
-                  </div>
-                ) : (
-                  <div className="flex gap-x-3 flex-nowrap">
-                    <div
-                      className="mx-auto flex "
-                      onClick={() => {
-                        window.scrollTo({
-                          top: 1000,
-                          behavior: "smooth",
-                        });
-                      }}
-                    >
-                      <button className="bg-green-500 flex w-32 h-14">
-                        Begin{" "}
-                        <span>
-                          <ArrowDownwardSharp />
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="flex gap-2 ">
-                {navLoad ? (
-                  <div class="flex flex-row gap-2">
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
-                    <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
-                  </div>
-                ) : (
-                  <div className="flex gap-2 ">
-                    <button onClick={() => navigation("/feedpost")}>
-                      Start Journey
+            <div>
+              {navLoad ? (
+                <div class="flex flex-row gap-2">
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce"></div>
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.3s]"></div>
+                  <div class="w-4 h-4 rounded-full bg-blue-700 animate-bounce [animation-delay:-.5s]"></div>
+                </div>
+              ) : (
+                <div className="flex gap-x-3 flex-nowrap">
+                  <div
+                    className="mx-auto flex "
+                    onClick={() => {
+                      window.scrollTo({
+                        top: 1000,
+                        behavior: "smooth",
+                      });
+                    }}
+                  >
+                    <button className="bg-green-500 flex w-32 h-14">
+                      Begin{" "}
+                      <span>
+                        <ArrowDownwardSharp />
+                      </span>
                     </button>
-                    <button onClick={() => Logout()}>Logout</button>
                   </div>
-                )}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
@@ -584,58 +529,74 @@ function LandingPage() {
           </motion.ol>
         </div>
       </AnimatePresence>
-      <div className="flex flex-col justify-between max-sm:justify-around mx-auto gap-y-3 mb-6 ">
-        <div className="mx-auto bg-transparent">
-          <GoogleLogin
-            onSuccess={(res) => handleSuccess(res)}
-            onError={(err) => console.log(err)}
-            theme="filled_blue"
-            shape="square"
-            width={400}
-          />
-        </div>
-        <div className=" mx-auto ">
-          <p className="mx-2 w-fit">
-            <input type="checkbox" ref={input} />
-            Accept our{" "}
-            <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
-              Terms and conditions{" "}
-            </span>
-            and{" "}
-            <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
-              Privacy Policy
-            </span>
-          </p>
-        </div>
-      </div>
-      <motion.div
-        className="fixed top-[33rem] max-sm:top-[35rem] left-3"
-        initial={{ x: -70, opacity: 0 }}
-        animate={{
-          x: 0,
-          opacity: 1,
-          transition: {
-            ease: "easeInOut",
-            duration: 0.8,
-          },
-        }}
-      >
-        {rendervalue === 1 && !Cookiestate && (
-          <div className="cookie-card">
-            <span className="title">🍪 Cookie Notice</span>
-            <p className="description">
-              We use cookies to ensure that we give you the best experience on
-              our website. <a href="#">Read Terms and Policy</a>.{" "}
-            </p>
-            <div className="actions">
-              <button
-                className="accept hover:text-white"
-                onClick={() => setCookieState(!Cookiestate)}
-              >
-                Accept
-              </button>
+
+      <div className="flex my-5  ">
+        {state ? (
+          <div class="flex flex-row gap-2 mx-auto ">
+            <Backdrop
+              sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+              open={state}
+            >
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          </div>
+        ) : (
+          <div className="flex flex-col justify-between max-sm:justify-around mx-auto gap-y-3  ">
+            <div className="mx-auto bg-transparent">
+              <GoogleLogin
+                onSuccess={(res) => handleSuccess(res)}
+                onError={(err) => console.log(err)}
+                theme="filled_blue"
+                shape="square"
+                width={400}
+              />
+            </div>
+            <div className=" mx-auto ">
+              <p className="mx-2 w-fit">
+                <input type="checkbox" ref={input} />
+                Accept our{" "}
+                <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+                  Terms and conditions{" "}
+                </span>
+                and{" "}
+                <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+                  Privacy Policy
+                </span>
+              </p>
             </div>
           </div>
+        )}
+      </div>
+      <motion.div className="fixed">
+        {rendervalue === 1 && !Cookiestate && (
+          <motion.div
+            className="fixed bottom-6"
+            initial={{ x: -70, opacity: 0 }}
+            animate={{
+              x: 0,
+              opacity: 1,
+              transition: {
+                ease: "easeInOut",
+                duration: 0.8,
+              },
+            }}
+          >
+            <div className="cookie-card">
+              <span className="title">🍪 Cookie Notice</span>
+              <p className="description">
+                We use cookies to ensure that we give you the best experience on
+                our website. <a href="#">Read Terms and Policy</a>.{" "}
+              </p>
+              <div className="actions">
+                <button
+                  className="accept hover:text-white"
+                  onClick={() => setCookieState(!Cookiestate)}
+                >
+                  Accept
+                </button>
+              </div>
+            </div>
+          </motion.div>
         )}
       </motion.div>
     </div>

@@ -5,8 +5,10 @@ import Navigation from "./navigation";
 import CloseIcon from "@mui/icons-material/Close";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import Design from "../LoginComponents/Logo_Design";
-import { Alert } from "@mui/material";
+
 import toast, { Toaster } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { authActions } from "../Store/CreateSlice";
 
 function CreatePost() {
   const [title, settitle] = useState("");
@@ -25,6 +27,7 @@ function CreatePost() {
 
   const notifyError = (data) => toast.error(data);
   const notifySuccess = (data) => toast.success(data);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleResize = () => {
@@ -69,6 +72,7 @@ function CreatePost() {
       })
       .then((res) => {
         notifySuccess(res.data.msg);
+        dispatch(authActions.login());
         settitle("");
         setdescription("");
         setfiles("");
@@ -110,13 +114,18 @@ function CreatePost() {
               <Design />
             </div>
           ) : (
-            <p className="text-3xl font-laila  font-bold my-2">Ideavista</p>
+            <p className="text-3xl font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text mt-2">
+              Ideavista{" "}
+              <sup className="font-laila  font-bold bg-gradient-to-r text-transparent from-blue-600 to-pink-500 bg-clip-text">
+                24
+              </sup>
+            </p>
           )}
           <div className="lg:w-[40rem]  max-sm:flex max-sm:flex-wrap  lg:mt-10 max-sm:my-8 border-2 rounded-lg border-x-red-400 border-y-blue-600   max-sm:mb-20 ">
             <form
               onSubmit={(e) => Postcreation(e)}
               encType="multipart/form-data"
-              className=" max-sm:w-[340px] flex flex-col flex-wrap p-5 overflow-hidden rounded-lg "
+              className=" max-sm:w-[20rem] max-sm:min-w-[15rem] flex flex-col flex-wrap p-5 overflow-hidden rounded-lg "
             >
               <div className="my-2 lg:ml-4">
                 <label className="text-lg uppercase tracking-wider ">

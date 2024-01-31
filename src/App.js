@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import CreatePost from "./Views/createPost";
@@ -19,10 +19,25 @@ import LandingPage from "./Views/landingPage";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import SharedPost from "./Views/SharedPost";
 import EditProfile from "./Views/EditProfile";
+import Myaccount from "./Views/Myaccount";
+import DeleteAccount from "./Views/DeleteAccount";
+import Privacy_policy from "./Views/Privacy_policy";
+import Terms_Conditions from "./Views/Terms_Conditions";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
-  const isLogin = useSelector((state) => state.login.Logstate);
+  const [width, setWidth] = useState(window.innerWidth);
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   return (
     <>
@@ -37,13 +52,17 @@ function App() {
               <Route path="/feedPost" Component={allPost} />
               <Route path="*" Component={LandingPage} />
               <Route path="/post/:id" Component={SharedPost} />
+              <Route path="/account" Component={Myaccount} />
+              <Route path="/deleteaccount" Component={DeleteAccount} />
+              <Route path="/privacypolicy" Component={Privacy_policy} />
+              <Route path="/termsandcondition" Component={Terms_Conditions} />
             </Routes>
           </BrowserRouter>
         </GoogleOAuthProvider>
       </div>
       <footer
         className={`footer-bg-animation text-white py-4 bg-gradient-to-r from-blue-500 to-teal-500  ${
-          isLogin ? "max-sm:mb-16" : ""
+          width <= 650 ? "mb-16" : "mb-0"
         } `}
       >
         <Container maxWidth="lg">
@@ -53,7 +72,7 @@ function App() {
               component="p"
               className="font-bold mb-4 md:mb-0 text-orange-400"
             >
-              Ideavista <sup className="text-3xl">24</sup>
+              Ideavista <sup className="text-3xl ">24</sup>
             </Typography>
             <div className="flex flex-wrap space-y-2  max-sm:space-x-9 md:space-y-0 md:space-x-4">
               <a
@@ -90,11 +109,10 @@ function App() {
                 <span className="max-sm:hidden">LinkedIn</span>
               </a>
               <a
-                href="#"
+                href="/privacypolicy"
                 color="inherit"
                 className="hover:text-gray-300"
                 underline="none"
-                target="_blank"
                 rel="noreferrer"
                 title="Privacy Policy"
               >
@@ -102,11 +120,10 @@ function App() {
               </a>
               <a
                 title="Terms and Conditions"
-                href="#"
+                href="/termsandcondition"
                 color="inherit"
                 className="hover:text-gray-300"
                 underline="none"
-                target="_blank"
                 rel="noreferrer"
               >
                 <Gavel />{" "}
@@ -123,8 +140,8 @@ function App() {
             >
               &copy; {new Date().getFullYear()} Ideavista. All Rights Reserved.
             </Typography>
-            <span className="text-center text-sm  font-roboto text-slate-700">
-              Designed by Logeshwaran
+            <span className="text-center text-sm  font-roboto text-gray-200">
+              Developed by Logeshwaran
             </span>
           </div>
         </Container>
