@@ -100,7 +100,7 @@ function LandingPage() {
     };
   }, []);
   axios.defaults.withCredentials = true;
-  let email;
+
   const handleSuccess = async (res) => {
     if (!input.current.checked) {
       notifyError("Accept terms and conditions to proceed");
@@ -121,7 +121,7 @@ function LandingPage() {
         { withCredentials: true }
       )
       .then(() => {
-        SendEmail();
+        SendEmail(email);
       })
       .catch((err) => notifyError(err.message))
       .finally(() => setstate(false));
@@ -132,7 +132,7 @@ function LandingPage() {
       .catch((err) => notifyError(err.message));
   };
 
-  const SendEmail = async () => {
+  const SendEmail = async (email) => {
     await axios
       .get(
         "https://server.ideavista.online/api/changepassword",
