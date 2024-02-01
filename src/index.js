@@ -6,10 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import ConfigStore from "./Store/ConfigStore";
 
+import axios from "axios";
+
+axios.defaults.withCredentials = true;
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={ConfigStore}>
-    <App />
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
   </Provider>
 );
 
