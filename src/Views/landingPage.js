@@ -121,12 +121,16 @@ function LandingPage() {
       )
       .then(async () => {
         await axios
-          .get("https://server.ideavista.online/api/changepassword", {
-            params: {
-              email,
-              isSign: true,
+          .get(
+            "https://server.ideavista.online/api/changepassword",
+            {
+              params: {
+                email,
+                isSign: true,
+              },
             },
-          })
+            { withCredentials: true }
+          )
           .then(() => {})
           .catch((err) => notifyError(err.message));
       })

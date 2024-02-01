@@ -10,8 +10,11 @@ function Myaccount() {
   const [userdata, setuserdata] = useState([]);
   const navigation = useNavigate();
   const Account = async () => {
+    axios.defaults.withCredentials = true;
     await axios
-      .get("https://server.ideavista.online/api/account")
+      .get("https://server.ideavista.online/api/account", null, {
+        withCredentials: true,
+      })
       .then((res) => {
         setuserdata(res.data.user);
       })

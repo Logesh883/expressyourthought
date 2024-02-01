@@ -17,10 +17,12 @@ function DeleteAccount() {
 
   const [getotp, setgetotp] = useState("");
   const [deleteload, setDeleteLoad] = useState("");
-
+  axios.defaults.withCredentials = true;
   const fetchUser = async () => {
     await axios
-      .get("https://server.ideavista.online/api/fetchuser")
+      .get("https://server.ideavista.online/api/fetchuser", null, {
+        withCredentials: true,
+      })
       .then((res) => {
         setuserdata(res.data.user[0]);
       })

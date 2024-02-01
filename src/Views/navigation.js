@@ -1,10 +1,9 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import PortraitIcon from "@mui/icons-material/Portrait";
+
 import Avatar from "@mui/material/Avatar";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";

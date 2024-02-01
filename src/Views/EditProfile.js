@@ -19,6 +19,7 @@ function EditProfile() {
   const fileInputRef = useRef();
   const ref = useRef();
   const notifySuccess = (data) => toast.success(data);
+  axios.defaults.withCredentials = true;
   useEffect(() => {
     const handleResize = () => {
       setWidth(window.innerWidth);
