@@ -121,7 +121,7 @@ function AllPost() {
         </div>
         {data.length >= 1 && (
           <div
-            className="fixed bottom-9 right-9 border-2 p-4 rounded-full bg-slate-200 max-sm:bottom-16 z-50 cursor-pointer"
+            className="fixed bottom-9 right-9 border-2 p-4 max-sm:p-2  rounded-full bg-slate-200 max-sm:bottom-16 max-sm:right-6 z-50 cursor-pointer"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <KeyboardArrowUpOutlinedIcon
