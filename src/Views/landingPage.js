@@ -119,20 +119,8 @@ function LandingPage() {
         },
         { withCredentials: true }
       )
-      .then(async () => {
-        await axios
-          .get(
-            "https://server.ideavista.online/api/changepassword",
-            {
-              params: {
-                email,
-                isSign: true,
-              },
-            },
-            { withCredentials: true }
-          )
-          .then(() => {})
-          .catch((err) => notifyError(err.message));
+      .then(() => {
+        SendEmail();
       })
       .catch((err) => notifyError(err.message))
       .finally(() => setstate(false));
@@ -141,6 +129,27 @@ function LandingPage() {
         CheckLogin();
       })
       .catch((err) => notifyError(err.message));
+  };
+
+  const SendEmail = async () => {
+    await axios
+      .get(
+        "https://server.ideavista.online/api/changepassword",
+        {
+          params: {
+            email,
+            isSign: true,
+          },
+        },
+        { withCredentials: true }
+      )
+      .then((res) => {
+        console.log(res.data.msg);
+      })
+      .catch((err) => {
+        notifyError(err.message);
+        console.log(err);
+      });
   };
 
   useEffect(() => {
