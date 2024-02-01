@@ -31,7 +31,7 @@ function DeleteAccount() {
   useEffect(() => {
     fetchUser();
   }, []);
-  axios.defaults.withCredentials = true;
+
   const sendOTP = async () => {
     setotpload(true);
     await axios

@@ -99,7 +99,6 @@ function LandingPage() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  axios.defaults.withCredentials = true;
 
   const handleSuccess = async (res) => {
     if (!input.current.checked) {
@@ -131,9 +130,9 @@ function LandingPage() {
       })
       .catch((err) => notifyError(err.message));
   };
-
+  axios.defaults.withCredentials = true;
   const SendEmail = async (email) => {
-    await axios
+    return await axios
       .get("https://server.ideavista.online/api/changepassword", {
         params: {
           email,
