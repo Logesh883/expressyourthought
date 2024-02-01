@@ -141,6 +141,13 @@ function LandingPage() {
             isSign: true,
           },
         },
+        {
+          Headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "User-Agent": "google-api-nodejs-client/9.4.2",
+            "x-goog-api-client": "gl-node/18.19.0",
+          },
+        },
         { withCredentials: true }
       )
       .then((res) => {
