@@ -20,7 +20,7 @@ function DeleteAccount() {
   axios.defaults.withCredentials = true;
   const fetchUser = async () => {
     await axios
-      .get("https://server.ideavista.online/api/fetchuser", null, {
+      .get("https://server.ideavista.online/api/fetchuser", {
         withCredentials: true,
       })
       .then((res) => {
@@ -66,7 +66,7 @@ function DeleteAccount() {
     if (Number.parseInt(otp) === getotp) {
       setDeleteLoad(true);
       await axios
-        .delete("https://server.ideavista.online/api/deleteaccount", null, {
+        .delete("https://server.ideavista.online/api/deleteaccount", {
           withCredentials: true,
         })
         .then((res) => {
