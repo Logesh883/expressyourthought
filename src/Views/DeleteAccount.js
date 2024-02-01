@@ -66,7 +66,9 @@ function DeleteAccount() {
     if (Number.parseInt(otp) === getotp) {
       setDeleteLoad(true);
       await axios
-        .delete("https://server.ideavista.online/api/deleteaccount")
+        .delete("https://server.ideavista.online/api/deleteaccount", null, {
+          withCredentials: true,
+        })
         .then((res) => {
           googleLogout();
           notifySuccess(res.data.msg);
