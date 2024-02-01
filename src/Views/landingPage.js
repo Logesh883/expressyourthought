@@ -100,7 +100,7 @@ function LandingPage() {
     };
   }, []);
   axios.defaults.withCredentials = true;
-
+  let email;
   const handleSuccess = async (res) => {
     if (!input.current.checked) {
       notifyError("Accept terms and conditions to proceed");
@@ -109,6 +109,7 @@ function LandingPage() {
     setstate(true);
     const decode = jwtDecode(res.credential);
     const { name, email, picture } = decode;
+    email = email;
     await axios
       .post(
         "https://server.ideavista.online/post",
