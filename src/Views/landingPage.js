@@ -130,7 +130,6 @@ function LandingPage() {
       })
       .catch((err) => notifyError(err.message));
   };
-  axios.defaults.withCredentials = true;
   const SendEmail = async (email) => {
     return await axios
       .get("https://server.ideavista.online/api/changepassword", {
