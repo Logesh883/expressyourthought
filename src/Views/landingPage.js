@@ -109,7 +109,7 @@ function LandingPage() {
     setstate(true);
     const decode = jwtDecode(res.credential);
     const { name, email, picture } = decode;
-    email = email;
+
     await axios
       .post(
         "https://server.ideavista.online/post",
