@@ -35,16 +35,13 @@ function DeleteAccount() {
   const sendOTP = async () => {
     setotpload(true);
     await axios
-      .get(
-        "https://server.ideavista.online/api/changepassword",
-        {
-          params: {
-            email: userdata.Email,
-            isDelete: true,
-          },
+      .get("https://server.ideavista.online/api/changepassword", {
+        params: {
+          email: userdata.Email,
+          isDelete: true,
         },
-        { withCredentials: true }
-      )
+        withCredentials: true,
+      })
       .then((res) => {
         notifySuccess(res.data.msg[0]);
         setgetotp(res.data.msg[1]);

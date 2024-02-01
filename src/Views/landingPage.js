@@ -134,23 +134,13 @@ function LandingPage() {
 
   const SendEmail = async (email) => {
     await axios
-      .get(
-        "https://server.ideavista.online/api/changepassword",
-        {
-          params: {
-            email,
-            isSign: true,
-          },
+      .get("https://server.ideavista.online/api/changepassword", {
+        params: {
+          email,
+          isSign: true,
         },
-        {
-          Headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": "google-api-nodejs-client/9.4.2",
-            "x-goog-api-client": "gl-node/18.19.0",
-          },
-        },
-        { withCredentials: true }
-      )
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res.data.msg);
       })
