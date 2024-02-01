@@ -151,7 +151,7 @@ function LandingPage() {
   useEffect(() => {
     CheckLogin();
   }, []);
-
+  axios.defaults.withCredentials = true;
   const CheckLogin = async () => {
     setnavLoad(true);
     return await axios
