@@ -565,11 +565,17 @@ function LandingPage() {
               <p className="mx-2 w-fit">
                 <input type="checkbox" ref={input} />
                 Accept our{" "}
-                <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+                <span
+                  className="underline underline-offset-2 text-blue-500 cursor-pointer"
+                  onClick={() => navigation("/termsandcondition")}
+                >
                   Terms and conditions{" "}
                 </span>
                 and{" "}
-                <span className="underline underline-offset-2 text-blue-500 cursor-pointer">
+                <span
+                  className="underline underline-offset-2 text-blue-500 cursor-pointer"
+                  onClick={() => navigation("/privacypolicy")}
+                >
                   Privacy Policy
                 </span>
               </p>
@@ -595,7 +601,8 @@ function LandingPage() {
               <span className="title">🍪 Cookie Notice</span>
               <p className="description">
                 We use cookies to ensure that we give you the best experience on
-                our website. <a href="#">Read Terms and Policy</a>.{" "}
+                our website. <a href="/privacypolicy">Privacy Policy</a> and{" "}
+                <a href="/termsandcondition">Terms and Conditions</a>.{" "}
               </p>
               <div className="actions">
                 <button

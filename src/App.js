@@ -50,7 +50,7 @@ function App() {
               <Route path="/getUserPost" element={<UserPost />} />
               <Route path="/editprofile" element={<EditProfile />} />
               <Route path="/feedPost" Component={allPost} />
-              <Route path="*" Component={LandingPage} />
+              <Route path="/*" Component={LandingPage} />
               <Route path="/post/:id" Component={SharedPost} />
               <Route path="/account" Component={Myaccount} />
               <Route path="/deleteaccount" Component={DeleteAccount} />

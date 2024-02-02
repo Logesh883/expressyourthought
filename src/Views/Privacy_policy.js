@@ -28,8 +28,12 @@ function Privacy_policy() {
           <p className="ml-6 max-sm:ml-0">
             {" "}
             User-Provided Information When you sign up for Ideavista using
-            Google authentication, we collect the following information: Name
-            Email address Profile picture
+            Google authentication, we collect the following information:
+            <ul>
+              <li>Name</li>
+              <li>Email address</li>
+              <li>Profile picture</li>
+            </ul>{" "}
           </p>
         </div>
         <div className="my-3">
