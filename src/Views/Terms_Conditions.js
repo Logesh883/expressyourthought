@@ -1,12 +1,15 @@
 import React from "react";
-import Navigation from "./navigation";
+
 import Design from "../LoginComponents/Logo_Design";
+import { useNavigate } from "react-router-dom";
 
 function Terms_Conditions() {
+  const navigation = useNavigate();
   return (
     <div>
-      <div className="">
-        <Navigation />
+      <div className="flex justify-end p-3">
+        {" "}
+        <button onClick={() => navigation("/")}>BACK TO HOME</button>
       </div>
       <div className="-mt-20 max-sm:-ml-20">
         <Design />

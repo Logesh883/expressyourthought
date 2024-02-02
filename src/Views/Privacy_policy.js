@@ -1,12 +1,14 @@
 import React from "react";
 import Navigation from "./navigation";
 import Design from "../LoginComponents/Logo_Design";
+import { useNavigate } from "react-router-dom";
 
 function Privacy_policy() {
+  const navigation = useNavigate();
   return (
     <div>
-      <div>
-        <Navigation />
+      <div className="flex justify-end p-3">
+        <button onClick={() => navigation("/")}>BACK TO HOME</button>
       </div>
       <div className="-mt-20 max-sm:-ml-20">
         <Design />
@@ -29,7 +31,22 @@ function Privacy_policy() {
             {" "}
             User-Provided Information When you sign up for Ideavista using
             Google authentication, we collect the following information:
-            <ul>
+            <ul className="mx-2 font-semibold list-disc">
+              <li>Name</li>
+              <li>Email address</li>
+              <li>Profile picture</li>
+            </ul>{" "}
+          </p>
+        </div>
+        <div>
+          <p className=" text-lg my-3">Usage of Your Content</p>
+          <p className="ml-6 max-sm:ml-0">
+            {" "}
+            We store the email,username and profile picture are stored in
+            database and that data can be used for further process.The data can
+            be deleted by user.The website enables the feature to delete the
+            account and stored are deleted from the database
+            <ul className="mx-2 font-semibold list-disc my-2">
               <li>Name</li>
               <li>Email address</li>
               <li>Profile picture</li>
