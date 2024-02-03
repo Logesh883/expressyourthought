@@ -140,9 +140,7 @@ function LandingPage() {
         },
         withCredentials: true,
       })
-      .then((res) => {
-        console.log(res.data.msg);
-      })
+      .then((res) => {})
       .catch((err) => {
         notifyError(err.message);
         console.log(err);
