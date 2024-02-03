@@ -10,8 +10,8 @@ import toast, { Toaster } from "react-hot-toast";
 import { RWebShare } from "react-web-share";
 import { Share } from "@mui/icons-material";
 import KeyboardArrowUpOutlinedIcon from "@mui/icons-material/KeyboardArrowUpOutlined";
-import PageChange from "@mui/material/Pagination";
-import { Stack } from "@mui/material";
+
+import PaginationFeed from "./Pagination";
 
 function AllPost() {
   const [data, setdata] = useState([]);
@@ -19,19 +19,24 @@ function AllPost() {
   const [clickedImage, setClickedImage] = useState(null);
   const [loading, setloading] = useState(true);
   const [deleteLoad, setDeleteLoad] = useState("");
+  const [checked, setchecked] = useState(undefined);
+
   var st;
+  const [paginationcount, setpaginationcount] = useState("");
 
   const [isEndOfPage, setIsEndOfPage] = useState(false);
 
   const handleScroll = () => {
-    const scrolledHeight = window.scrollY;
-    const totalHeight = document.documentElement.scrollHeight;
-    const windowHeight = window.innerHeight;
+    if (!checked) {
+      const scrolledHeight = window.scrollY;
+      const totalHeight = document.documentElement.scrollHeight;
+      const windowHeight = window.innerHeight;
 
-    if (scrolledHeight + windowHeight >= totalHeight - 50) {
-      setIsEndOfPage(true);
-    } else {
-      setIsEndOfPage(false);
+      if (scrolledHeight + windowHeight >= totalHeight - 50) {
+        setIsEndOfPage(true);
+      } else {
+        setIsEndOfPage(false);
+      }
     }
   };
 
@@ -42,6 +47,10 @@ function AllPost() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+  const handlePagination = (e) => {
+    fetch(e.target.innerText);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   const svgStyle = {
     shapeRendering: "geometricPrecision",
@@ -53,14 +62,31 @@ function AllPost() {
   const notifyError = (data) => toast.error(data);
   const notifyLoading = (data) => toast.success(data);
   axios.defaults.withCredentials = true;
-  const fetch = async () => {
+  const fetch = async (pageno) => {
     try {
+      pageno = pageno === undefined || null ? 1 : pageno;
+
       await axios
-        .get("https://server.ideavista.online/api/allpost", null, {
-          withCredentials: true,
-        })
+        .get(
+          "https://server.ideavista.online/api/allpost",
+          { params: { page: pageno } },
+          {
+            withCredentials: true,
+          }
+        )
         .then((res) => {
-          setdata((prevData) => [...prevData, ...res.data.fetched]);
+          if (pageno == 1) {
+            setdata(res.data.fetched[0]);
+
+            let datalength = Number.parseInt(res.data.fetched[1]);
+            if (datalength % 10 === 0) {
+              setpaginationcount(Number.parseInt(datalength / 10));
+            } else {
+              setpaginationcount(Number.parseInt(datalength / 10) + 1);
+            }
+          } else {
+            setdata(res.data.fetched);
+          }
         });
     } catch (err) {
       notifyError(err.message || "Error in fetching data");
@@ -71,22 +97,52 @@ function AllPost() {
 
   const [pageload, setpageload] = useState(false);
   useEffect(() => {
-    if (isEndOfPage) {
+    if (checked && isEndOfPage) {
       try {
-        setpageload(true);
-        fetch();
+        setloading(true);
+        fetchInfinitePost();
       } catch (err) {
         notifyError("Error in Fetching more data");
       } finally {
-        setpageload(false);
+        setloading(false);
       }
     } else {
       return;
     }
   }, [isEndOfPage]);
 
+  const fetchInfinitePost = async () => {
+    setloading(true);
+    await axios
+      .get("https://server.ideavista.online/api/infintepost", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setdata((prev) => [...prev, ...res.data.data]);
+        console.log(res.data.data);
+      })
+      .catch((err) => notifyError(err.message))
+      .finally(() => setloading(false));
+  };
+
+  const fetchSettings = async () => {
+    await axios
+      .get("https://server.ideavista.online/api/fetchsettings", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setchecked(res.data.msg.feedSetting);
+        if (res.data.msg.feedSetting) {
+          fetchInfinitePost();
+        } else {
+          fetch();
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
-    fetch();
+    fetchSettings();
   }, []);
 
   const [width, setWidth] = useState(window.innerWidth);
@@ -141,6 +197,7 @@ function AllPost() {
               </sup>
             </p>
           )}
+
           {loading ? (
             [...Array(5)].map((_, i) => (
               <div
@@ -400,13 +457,13 @@ function AllPost() {
           )}
         </div>
       </div>
-      {/* {data.length >= 1 && (
-        <div className="my-3 flex justify-center flex-wrap">
-          <Stack spacing={5}>
-            <PageChange count={10} variant="text" color="primary" />
-          </Stack>
-        </div>
-      )} */}
+
+      {!checked && data.length >= 1 && (
+        <PaginationFeed
+          handlePagination={handlePagination}
+          paginationcount={paginationcount}
+        />
+      )}
 
       {pageload && (
         <div class="flex flex-row gap-2">

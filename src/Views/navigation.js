@@ -20,6 +20,7 @@ import {
   Edit,
   LogoutTwoTone,
   PostAdd,
+  Settings,
   TipsAndUpdates,
 } from "@mui/icons-material";
 import { googleLogout } from "@react-oauth/google";
@@ -221,11 +222,18 @@ function Navigation({ value }) {
                       </ListItemIcon>
                       Delete account
                     </MenuItem>
+
                     <MenuItem onClick={() => Logout()}>
                       <ListItemIcon>
                         <LogoutTwoTone fontSize="small" />
                       </ListItemIcon>
                       Logout
+                    </MenuItem>
+                    <MenuItem onClick={() => navigation("/settings")}>
+                      <ListItemIcon>
+                        <Settings fontSize="small" />
+                      </ListItemIcon>
+                      Settings
                     </MenuItem>
                   </Menu>
                 </div>
@@ -344,6 +352,12 @@ function Navigation({ value }) {
                 <LogoutTwoTone fontSize="small" />
               </ListItemIcon>
               Logout
+            </MenuItem>
+            <MenuItem onClick={() => navigation("/settings")}>
+              <ListItemIcon>
+                <Settings fontSize="small" />
+              </ListItemIcon>
+              Settings
             </MenuItem>
           </Menu>
         </div>

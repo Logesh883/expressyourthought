@@ -23,6 +23,7 @@ import Myaccount from "./Views/Myaccount";
 import DeleteAccount from "./Views/DeleteAccount";
 import Privacy_policy from "./Views/Privacy_policy";
 import Terms_Conditions from "./Views/Terms_Conditions";
+import Settings from "./Views/Settings";
 const client_id =
   "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
 function App() {
@@ -56,6 +57,7 @@ function App() {
               <Route path="/deleteaccount" Component={DeleteAccount} />
               <Route path="/privacypolicy" Component={Privacy_policy} />
               <Route path="/termsandcondition" Component={Terms_Conditions} />
+              <Route path="/settings" Component={Settings} />
             </Routes>
           </BrowserRouter>
         </GoogleOAuthProvider>

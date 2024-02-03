@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import "./userPostButton.css";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import toast, { Toaster } from "react-hot-toast";
+import { KeyboardArrowUpOutlined } from "@mui/icons-material";
 
 function UserPost() {
   const [doubleClick, setDoubleClick] = useState(false);
@@ -118,6 +119,14 @@ function UserPost() {
         <div>
           <Toaster />
         </div>
+        {UserPost.length >= 1 && (
+          <div
+            className="fixed bottom-9 right-9 border-2 p-4 max-sm:p-2  rounded-full bg-slate-200 max-sm:bottom-16 max-sm:right-3 z-50 cursor-pointer"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <KeyboardArrowUpOutlined fontSize="large" sx={{ color: "blue " }} />
+          </div>
+        )}
         <div className="flex gap-x-20 flex-wrap justify-center overflow-hidden lg:mt-10 max-sm:mx-2 max-sm:mb-20">
           {width >= 650 ? (
             ""

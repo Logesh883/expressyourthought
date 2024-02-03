@@ -86,7 +86,7 @@ function DeleteAccount() {
   };
 
   return (
-    <div className="min-h-[38rem]">
+    <div className="min-h-[38rem]" onContextMenu={(e) => e.preventDefault()}>
       <div>
         <Navigation />
         <Toaster />
