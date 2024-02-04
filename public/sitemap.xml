@@ -11,6 +11,50 @@
   <loc>https://www.ideavista.online/sitemap.xml</loc>
   <lastmod>2024-02-03T20:07:58+00:00</lastmod>
 </url>
+<url>
+  <loc>https://www.ideavista.online</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/createpost</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/getuserpost</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/editprofile</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/feedPost</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online//post/?id</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/account</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/deleteaccount</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/privacypolicy</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/termsandcondition</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
+<url>
+  <loc>https://www.ideavista.online/settings</loc>
+  <lastmod>2024-02-03T20:07:58+00:00</lastmod>
+</url>
 
 
 </urlset>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import CreatePost from "./Views/createPost";
 import UserPost from "./Views/userpost";
 import "./footer.css";
@@ -24,8 +23,9 @@ import DeleteAccount from "./Views/DeleteAccount";
 import Privacy_policy from "./Views/Privacy_policy";
 import Terms_Conditions from "./Views/Terms_Conditions";
 import Settings from "./Views/Settings";
-const client_id =
-  "1091257569215-a1pesh27mtqv7mk6oefla9na7lc1hmsj.apps.googleusercontent.com";
+
+const client_id = process.env.REACT_APP_API_CLIENT;
+
 function App() {
   const [width, setWidth] = useState(window.innerWidth);
   useEffect(() => {
