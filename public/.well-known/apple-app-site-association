@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "93GV2H7Y2X.com.izzo",
+        "paths": [
+          "/settings/*",
+          "/activate/*",
+          "/reset-password/*"
+        ]
+      }
+    ]
+  }
+}
