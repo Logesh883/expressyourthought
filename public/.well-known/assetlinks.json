@@ -9,4 +9,14 @@
       ]
     }
   }
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.izzo",
+      "sha256_cert_fingerprints": [
+        "81:8D:DA:0D:A4:81:FA:E8:6B:6B:CF:52:1C:EF:68:1F:BE:D5:23:D4:37:3F:6D:E5:E0:67:89:52:45:E1:34:F2"
+      ]
+    }
+  }
 ]
