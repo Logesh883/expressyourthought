@@ -1,13 +1,12 @@
 {
   "applinks": {
-    "apps": [],
     "details": [
       {
-        "appID": "93GV2H7Y2X.com.izzo.app",
-        "paths": [
-          "/settings/*",
-          "/activate/*",
-          "/reset-password/*"
+        "appsID": ["93GV2H7Y2X.com.izzo.app","93GV2H7Y2X.ch.izzo.app"]
+        "components": [
+               {
+                  "/": "/event-detail/*",
+               },
         ]
       }
     ]
