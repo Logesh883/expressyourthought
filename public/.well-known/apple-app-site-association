@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "93GV2H7Y2X.com.izzo",
+        "appID": "93GV2H7Y2X.com.izzo.app.ios",
         "paths": [
           "/settings/*",
           "/activate/*",
