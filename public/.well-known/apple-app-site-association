@@ -2,7 +2,7 @@
   "applinks": {
     "details": [
       {
-        "appsID": ["93GV2H7Y2X.com.izzo.app","93GV2H7Y2X.ch.izzo.app"]
+        "appIDs": ["93GV2H7Y2X.com.izzo.app","93GV2H7Y2X.ch.izzo.app"]
         "components": [
                {
                   "/": "/event-detail/*",
