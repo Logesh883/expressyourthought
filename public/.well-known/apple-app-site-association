@@ -2,13 +2,20 @@
   "applinks": {
     "details": [
       {
-        "appIDs": ["93GV2H7Y2X.com.izzo.app","93GV2H7Y2X.ch.izzo.app"]
+        "appID":
+          "93GV2H7Y2X.com.izzo.app"
+        ,
         "components": [
-               {
-                  "/": "/event-detail/*",
-               },
+          {
+            "/": "/event/*"
+          }
         ]
       }
+    ]
+  },
+  "webcredentials": {
+    "apps": [
+      "93GV2H7Y2X.com.izzo.app"
     ]
   }
 }
