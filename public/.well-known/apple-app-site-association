@@ -2,12 +2,20 @@
   "applinks": {
     "details": [
       {
-        "appID":
-          "93GV2H7Y2X.com.izzo.app"
-        ,
+        "appID": "93GV2H7Y2X.com.izzo.app",
         "components": [
           {
             "/": "/event/*"
+          },
+          {
+            "/": "/activate",
+            "query": {
+              "id": "*",
+              "email": "*"
+            }
+          },
+          {
+            "/": "/reset-password/*"
           }
         ]
       }
