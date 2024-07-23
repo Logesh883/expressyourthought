@@ -15,7 +15,10 @@
             }
           },
           {
-            "/": "/reset-password/*"
+            "/": "/reset-password"
+            "query":{
+              "id": "*",
+            }
           }
         ]
       }
